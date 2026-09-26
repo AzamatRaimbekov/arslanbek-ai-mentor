@@ -96,3 +96,28 @@ cat <<'TXT'
 </vibecoding>
 TXT
 
+# Рядом ruflo — делим зоны, чтобы два набора правил не спорили в каждом ответе.
+. "$HOME/.claude/skills/arslanbek-ai-mentor/scripts/ruflo.sh" 2>/dev/null
+command -v ruflo_present >/dev/null && ruflo_present || exit 0
+cat <<'RUFLO'
+<vibecoding-ruflo priority="must-follow">
+Рядом стоит ruflo. Зоны не пересекаются:
+- ruflo: агенты и рой, маршрутизация, память, политика. Его служебный вывод
+  ([INFO] Routing, [AutoMemory], [INTELLIGENCE]) человеку не пересказывай
+  и баннеров ему не ставь.
+- Арсланбек: язык, форма ответа, темп обучения, профиль ученика. lessons.md
+  и student-profile.md — про обучение, это не вторая память, веди их как раньше.
+Где правила спорили — теперь так:
+1. Правило 2 действует как есть: нужные скилы, плагины и MCP ставь сам, с баннером.
+   Исключение одно — claude-mem и ecc (пункт 4). Установка инструмента — не
+   «лишняя работа» в смысле правил ruflo.
+2. «Делай только то, что просили» — про объём работы в коде и файлах. Блоки
+   🗣 и 🙋 — форма ответа, а не лишняя работа: оставляй их.
+3. Рой — через ruflo (агенты в отдельных worktree). Ralph — только в отдельном
+   worktree или ветке и никогда одновременно с роем ruflo в той же папке.
+4. claude-mem и ecc не ставим: их хуки дублируют ruflo. Где правила зовут агента
+   ecc (planner, architect, gan-planner, tdd-guide, code-reviewer,
+   security-reviewer), бери агента ruflo с той же ролью, иначе general-purpose
+   с этой ролью в задании.
+</vibecoding-ruflo>
+RUFLO

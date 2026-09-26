@@ -24,6 +24,11 @@ The ecc plugin is installed globally. Subagents you must use, one per step:
 after code · `build-error-resolver` when a build or test run fails. Do not skip the
 review step: a story is not done until the reviewers have no blocking findings.
 
+If ecc is not installed (projects that run ruflo skip it — its hooks duplicate ruflo's),
+use a subagent with the same role instead: a ruflo agent of that role if one exists,
+otherwise `general-purpose` with the role stated in its prompt. Never run this loop in
+the same folder while a ruflo swarm is writing there — use a separate git worktree.
+
 ## Progress Report Format
 
 APPEND to progress.txt (never replace, always append):

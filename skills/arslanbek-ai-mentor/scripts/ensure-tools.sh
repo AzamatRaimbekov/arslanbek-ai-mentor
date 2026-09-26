@@ -2,12 +2,24 @@
 # Ставит недостающие плагины и скилы САМ. Ничего не спрашивает.
 # Незнакомый скил ищет через `npx skills find` и ставит верхний надёжный результат.
 # Флаги: --dry-run  --with-stack  --quiet  --once (не чаще раза в сутки)
+# Рядом ruflo: claude-mem и ecc не ставятся никогда — их хуки дублируют ruflo.
+# find-skills едет внутри скила (bundled/) и кладётся первым, без сети и без суточной паузы.
 set -u
 
 DRY=0; STACK=0; QUIET=0; ONCE=0
 for a in "$@"; do case "$a" in
   --dry-run) DRY=1 ;; --with-stack) STACK=1 ;; --quiet) QUIET=1 ;; --once) ONCE=1 ;;
 esac; done
+
+RUFLO=0; RUFLO_SKIP_PLUGINS=""
+. "$(dirname "$0")/ruflo.sh" 2>/dev/null
+command -v ruflo_present >/dev/null && ruflo_present && RUFLO=1
+
+# без find-skills незнакомую задачу решают с нуля — поэтому он приезжает вместе со скилом
+BUNDLED="$(cd "$(dirname "$0")/.." && pwd)/bundled/find-skills"
+if [ "$DRY" = 0 ] && [ -f "$BUNDLED/SKILL.md" ] && [ ! -e "$HOME/.claude/skills/find-skills" ]; then
+  mkdir -p "$HOME/.claude/skills" && cp -R "$BUNDLED" "$HOME/.claude/skills/find-skills"
+fi
 
 SKILLS_DIR="$HOME/.claude/skills"
 CACHE_DIR="$HOME/.claude/plugins/cache"
@@ -46,12 +58,16 @@ plugin_present() {   # по локальному реестру — быстро
 
 for m in "${MARKETPLACES[@]}"; do
   name="${m%%=*}"; repo="${m#*=}"
+  [ "$RUFLO" = 1 ] && case "$name" in thedotmack|ecc) continue ;; esac   # маркетплейсы claude-mem и ecc
   claude plugin marketplace list 2>/dev/null | grep -q "❯ $name" && continue
   [ "$DRY" = 1 ] && { say "DRY marketplace $name"; continue; }
   claude plugin marketplace add "$repo" >/dev/null 2>&1
 done
 
 for p in "${PLUGINS[@]}"; do
+  if [ "$RUFLO" = 1 ] && case " $RUFLO_SKIP_PLUGINS " in *" ${p%@*} "*) true ;; *) false ;; esac; then
+    say "SKIP plugin ${p%@*} (рядом ruflo — его хуки дублируют ruflo)"; continue
+  fi
   if plugin_present "$p"; then say "OK plugin ${p%@*}"; continue; fi
   if [ "$DRY" = 1 ]; then say "DRY plugin $p"; continue; fi
   claude plugin install "$p" >/dev/null 2>&1

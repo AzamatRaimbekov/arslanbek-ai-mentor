@@ -30,7 +30,9 @@ npx skills add AzamatRaimbekov/arslanbek-ai-mentor@vibecoding -g -y # diagnostic
 
 ## Tools install themselves
 
-The skill does not report what is missing — it closes the gap. A SessionStart hook
+The skill does not report what is missing — it closes the gap. `find-skills` ships
+inside the mentor (`skills/arslanbek-ai-mentor/bundled/`, an MIT copy of vercel-labs/skills)
+and is installed first, offline. A SessionStart hook
 runs delivery in the background: missing plugins and skills are installed, and the
 result is announced. For a skill with no known source, the catalog is searched with
 `npx skills find` and the top hit is installed only if it has more than 1000 installs —
@@ -49,6 +51,11 @@ bash ~/.claude/skills/mcp-setup/scripts/add-key.sh stitch <KEY>
 
 The command stores the key in `~/.claude/.secrets/` with `600` permissions and connects
 the service immediately.
+
+**Next to ruflo** the skill splits responsibilities: ruflo owns agents, swarms and memory,
+the skill owns language and teaching. `claude-mem` and `ecc` are never installed (their
+hooks duplicate ruflo's); everything else installs automatically, same as without ruflo. Opt out with `VIBECODING_NO_RUFLO=1`. Details: `SKILL.md`,
+section «Рядом с ruflo».
 
 ## Meet Azamat
 

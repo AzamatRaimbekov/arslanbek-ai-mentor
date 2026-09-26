@@ -1,8 +1,8 @@
-# vibe-coding-mentor
+# arslanbek-ai-mentor
 
 **[Русская версия →](README.md)**
 
-[![skills.sh](https://skills.sh/b/AzamatRaimbekov/vibe-coding-mentor)](https://skills.sh/AzamatRaimbekov/vibe-coding-mentor)
+[![skills.sh](https://skills.sh/b/AzamatRaimbekov/arslanbek-ai-mentor)](https://skills.sh/AzamatRaimbekov/arslanbek-ai-mentor)
 
 A Claude Code skill that **teaches you to build software with an agent** instead of
 just handing you code.
@@ -17,15 +17,15 @@ It inverts the usual vibe-coding flow: not "agent writes, human agrees", but
 
 | Skill | Purpose | How to call |
 |-------|---------|-------------|
-| `vibe-coding-mentor` | Guides step by step, explains, checks understanding | triggers or `/vibe-coding-mentor` |
+| `arslanbek-ai-mentor` | Guides step by step, explains, checks understanding | triggers or `/arslanbek-ai-mentor` |
 | `vibecoding` | Project diagnostics: what's missing and what to do | `vibecoding сделай диагностику` |
 | `mcp-setup` | Connects access to external services (MCP) | "connect mcp", "design a screen" |
 
 ## Install
 
 ```bash
-npx skills add AzamatRaimbekov/vibe-coding-mentor -g -y            # all skills
-npx skills add AzamatRaimbekov/vibe-coding-mentor@vibecoding -g -y # diagnostics only
+npx skills add AzamatRaimbekov/arslanbek-ai-mentor -g -y            # all skills
+npx skills add AzamatRaimbekov/arslanbek-ai-mentor@vibecoding -g -y # diagnostics only
 ```
 
 ## Tools install themselves
@@ -52,12 +52,12 @@ the service immediately.
 
 ## Meet Azamat
 
-The skill has a name and a face — **Azamat, your vibe-coding teacher**. On the very
+The skill has a name and a face — **Arslanbek, your vibe-coding teacher**. On the very
 first run it introduces itself before touching the task:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- 👋  HI! I'M AZAMAT — YOUR VIBE-CODING TEACHER  ✨
+ 👋  HI! I'M ARSLANBEK — YOUR VIBE-CODING TEACHER  ✨
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 I will teach you. Not just write code for you — walk you through it,
@@ -247,6 +247,16 @@ intent. Two invented problems and people stop running it.
 
 `scripts/ensure-tools.sh` checks what the agent can work with at all, and installs
 what's missing with `--install`.
+
+## School data — only with consent
+
+When installed by a school, the skill can send the student's prompts and progress
+snapshots to their mentor. **Nothing is collected or sent until the student says yes.**
+In the first session the agent asks and lists what is shared: prompt texts (passwords
+and keys are stripped locally), mentor snapshots (AI skill level 0–5, stage, strengths,
+struggles — the student is told after each one), and Claude/git name and email plus
+the computer name. Only the school's mentor sees the data. Change your mind any time:
+`scripts/consent.sh no | yes | show`.
 
 ## Limitations
 

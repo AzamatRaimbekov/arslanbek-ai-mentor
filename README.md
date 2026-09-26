@@ -1,8 +1,8 @@
-# vibe-coding-mentor
+# arslanbek-ai-mentor
 
 **[English version →](README.en.md)**
 
-[![skills.sh](https://skills.sh/b/AzamatRaimbekov/vibe-coding-mentor)](https://skills.sh/AzamatRaimbekov/vibe-coding-mentor)
+[![skills.sh](https://skills.sh/b/AzamatRaimbekov/arslanbek-ai-mentor)](https://skills.sh/AzamatRaimbekov/arslanbek-ai-mentor)
 
 Скил для Claude Code, который **учит строить софт вместе с агентом**, а не просто отдаёт код.
 
@@ -16,7 +16,7 @@
 
 | Скил | Зачем | Вызов |
 |------|-------|-------|
-| `vibe-coding-mentor` | Ведёт по шагам, объясняет, проверяет понимание | по триггерам или `/vibe-coding-mentor` |
+| `arslanbek-ai-mentor` | Ведёт по шагам, объясняет, проверяет понимание | по триггерам или `/arslanbek-ai-mentor` |
 | `vibecoding` | Диагностика проекта: что отсутствует и что делать | `vibecoding сделай диагностику` |
 | `mcp-setup` | Подключение доступов к внешним службам | «подключи mcp», «нарисуй макет» |
 
@@ -30,7 +30,7 @@
 с полными правами агента.
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh --with-stack
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh --with-stack
 bash ~/.claude/skills/mcp-setup/scripts/ensure-mcp.sh
 ```
 
@@ -54,8 +54,8 @@ bash ~/.claude/skills/mcp-setup/scripts/add-key.sh stitch <КЛЮЧ>
 ## Установка
 
 ```bash
-npx skills add AzamatRaimbekov/vibe-coding-mentor -g -y            # оба скила
-npx skills add AzamatRaimbekov/vibe-coding-mentor@vibecoding -g -y # только диагностика
+npx skills add AzamatRaimbekov/arslanbek-ai-mentor -g -y            # оба скила
+npx skills add AzamatRaimbekov/arslanbek-ai-mentor@vibecoding -g -y # только диагностика
 ```
 
 Или вручную — скопировать папки из `skills/` в `~/.claude/skills/`.
@@ -70,8 +70,8 @@ npx skills add AzamatRaimbekov/vibe-coding-mentor@vibecoding -g -y # тольк�
 О результате агент говорит баннером `✅ Я ОБНОВИЛ` в начале следующей сессии.
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/self-update.sh --now        # обновить сейчас
-bash ~/.claude/skills/vibe-coding-mentor/scripts/self-update.sh --check-only # только проверить
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/self-update.sh --now        # обновить сейчас
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/self-update.sh --check-only # только проверить
 ```
 
 ## Диагностика: `vibecoding`
@@ -182,12 +182,12 @@ Python, pandas, NumPy, scikit-learn, PyTorch, Kaggle, SQL, Git, Docker, MDN.
 
 ## Знакомство
 
-У скила есть имя и лицо — **Азамат, вайб-кодер-учитель**. При самом первом запуске —
+У скила есть имя и лицо — **Арсланбек, вайб-кодер-учитель**. При самом первом запуске —
 развёрнутое знакомство до решения задачи:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- 👋  ПРИВЕТ! Я АЗАМАТ — ТВОЙ ВАЙБ-КОДЕР-УЧИТЕЛЬ  ✨
+ 👋  ПРИВЕТ! Я АРСЛАНБЕК — ТВОЙ ВАЙБ-КОДЕР-УЧИТЕЛЬ  ✨
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Я буду тебя учить. Не просто писать за тебя код, а вести по шагам,
@@ -225,7 +225,7 @@ Python, pandas, NumPy, scikit-learn, PyTorch, Kaggle, SQL, Git, Docker, MDN.
 Отметка о состоявшемся знакомстве — `~/.claude/.vibecoding-welcomed`. Удалить
 файл, чтобы поздороваться заново. Дальше — короткая версия:
 
-> 👋 Привет! Я Азамат, твой вайб-кодер-учитель.
+> 👋 Привет! Я Арсланбек, твой вайб-кодер-учитель.
 >
 > 🌱 Не переживай, если что-то непонятно — это нормально, я объясню любое слово.
 > Проведу тебя по шагам, ничего не сломаем: всё, что делаем, можно откатить.
@@ -235,7 +235,7 @@ Python, pandas, NumPy, scikit-learn, PyTorch, Kaggle, SQL, Git, Docker, MDN.
 Дальше имя не повторяется в каждом сообщении — представился один раз, этого хватает.
 Речь от первого лица: «я проверю», «я покажу», «давай сделаем» — не «система выполнит».
 
-Спросят прямо, человек это или программа — ответ честный: ИИ-помощник по имени Азамат.
+Спросят прямо, человек это или программа — ответ честный: ИИ-помощник по имени Арсланбек.
 Врать нельзя даже в мелочи, доверие ученика единственное, на чём держится обучение.
 
 ## Видно, что происходит
@@ -556,7 +556,7 @@ npx skills add open-mercato/skills@om-root-cause -g -y              #    743 —
 claude plugin marketplace add affaan-m/ecc && claude plugin install ecc@ecc
 claude plugin marketplace add snarktank/ralph && claude plugin install ralph-skills@ralph-marketplace
 claude plugin install claude-code-setup@claude-plugins-official   # советует обвязку под проект
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ralph-init.sh <проект>   # включить Ralph в проекте
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ralph-init.sh <проект>   # включить Ralph в проекте
 ```
 
 **И три скила обвязки агента (harness)** — для правки самого учителя, а не продукта:
@@ -638,6 +638,25 @@ scripts/note-student.sh <знает|трудно|стиль|цели|решен�
 
 Оба скрипта отказываются писать дубль. После записи — строка `🧠 Записал…`,
 чтобы человек видел, что его слышат.
+
+## Данные для школы — только с согласия
+
+Если скил поставлен в школе, он может отправлять наставнику промпты ученика
+и срезы его прогресса. **Пока ученик не ответил «да», ничего не собирается
+и не отправляется.** В первой сессии агент сам спросит и перечислит, что уходит:
+
+- тексты промптов (пароли, ключи и токены вырезаются на машине до отправки);
+- срезы наставника: уровень владения ИИ 0–5, этап, что получается и что трудно;
+  после каждого среза агент говорит ученику, что отправил и какой уровень поставил;
+- email и имя из аккаунта Claude и git, имя компьютера — чтобы понять, чьи это данные.
+
+Данные видит только наставник школы. Передумать можно в любой момент:
+
+```bash
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/consent.sh no    # выключить и очистить очередь
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/consent.sh yes   # включить
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/consent.sh show  # что сейчас
+```
 
 ## Ограничения
 

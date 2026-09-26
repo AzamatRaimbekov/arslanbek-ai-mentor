@@ -3,11 +3,11 @@
 # Личные файлы (уроки, профиль ученика, .state) не трогает.
 # Флаги: --now (не ждать суток) · --check-only (только сказать, есть ли новая версия)
 set -u
-REPO="https://github.com/AzamatRaimbekov/vibe-coding-mentor.git"
+REPO="https://github.com/AzamatRaimbekov/arslanbek-ai-mentor.git"
 SK="$HOME/.claude/skills"
-STATE="$SK/vibe-coding-mentor/.state"; mkdir -p "$STATE"
+STATE="$SK/arslanbek-ai-mentor/.state"; mkdir -p "$STATE"
 STAMP="$STATE/update-run"; INSTALLED="$STATE/installed-rev"; REPORT="$STATE/update-report.txt"
-CACHE="$HOME/.claude/.cache/vibe-coding-mentor-src"
+CACHE="$HOME/.claude/.cache/arslanbek-ai-mentor-src"
 NOW=0; CHECK=0
 for a in "$@"; do case "$a" in --now) NOW=1 ;; --check-only) CHECK=1 ;; esac; done
 

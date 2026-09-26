@@ -11,7 +11,7 @@ esac; done
 
 SKILLS_DIR="$HOME/.claude/skills"
 CACHE_DIR="$HOME/.claude/plugins/cache"
-STATE_DIR="$HOME/.claude/skills/vibe-coding-mentor/.state"
+STATE_DIR="$HOME/.claude/skills/arslanbek-ai-mentor/.state"
 STAMP="$STATE_DIR/last-run"
 LOG="$STATE_DIR/last-report.txt"
 MIN_INSTALLS=1000          # порог доверия к находке из каталога
@@ -101,8 +101,8 @@ CORE=(
   "test-driven-development=" "systematic-debugging="
   "verification-before-completion=" "project-documentation-wiki="
   "find-skills=vercel-labs/skills"
-  "vibecoding=AzamatRaimbekov/vibe-coding-mentor"
-  "mcp-setup=AzamatRaimbekov/vibe-coding-mentor"
+  "vibecoding=AzamatRaimbekov/arslanbek-ai-mentor"
+  "mcp-setup=AzamatRaimbekov/arslanbek-ai-mentor"
 )
 STACK_SKILLS=(
   "agent-browser=vercel-labs/agent-browser"

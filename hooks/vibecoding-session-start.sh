@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Старт сессии: САМ доставляет недостающие скилы и плагины.
 # Установка уходит в фон — старт сессии не ждёт сеть.
-SK="$HOME/.claude/skills/vibe-coding-mentor"
+SK="$HOME/.claude/skills/arslanbek-ai-mentor"
 [ -d "$SK" ] || exit 0
 
 # 1. доставка в фоне, не чаще раза в сутки

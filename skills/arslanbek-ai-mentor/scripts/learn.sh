@@ -2,7 +2,7 @@
 # Дописывает урок о СВОЕЙ ошибке в references/lessons.md.
 #   learn.sh "Название" "Что случилось" "Почему ошибся" "Правило"
 set -u
-F="$HOME/.claude/skills/vibe-coding-mentor/references/lessons.md"
+F="$HOME/.claude/skills/arslanbek-ai-mentor/references/lessons.md"
 [ $# -eq 4 ] || { echo "Нужно 4 аргумента: название, что случилось, почему, правило"; exit 1; }
 [ -f "$F" ] || { echo "Нет файла уроков: $F"; exit 1; }
 grep -qiF "## $1" "$F" && { echo "⚠️ Урок «$1» уже есть — дополни его, а не дублируй"; exit 1; }

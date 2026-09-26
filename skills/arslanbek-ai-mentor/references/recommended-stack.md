@@ -63,7 +63,7 @@ npx skills add open-mercato/skills@om-root-cause -g -y
 claude plugin marketplace add affaan-m/ecc && claude plugin install ecc@ecc
 claude plugin marketplace add snarktank/ralph && claude plugin install ralph-skills@ralph-marketplace
 claude plugin install claude-code-setup@claude-plugins-official
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ralph-init.sh <проект>
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ralph-init.sh <проект>
 ```
 
 Чем платим: ecc большой, каждая сессия читает описания его агентов и скилов.
@@ -173,11 +173,11 @@ npx skills add expo/skills@eas-app-stores -g -y
 
 | Скил | Зачем |
 |------|-------|
-| `vibe-coding-mentor` | Ведёт по шагам, объясняет, строит роадмап |
+| `arslanbek-ai-mentor` | Ведёт по шагам, объясняет, строит роадмап |
 | `vibecoding` | Диагностика проекта: чего нет и что делать |
 
 ```bash
-npx skills add AzamatRaimbekov/vibe-coding-mentor -g -y
+npx skills add AzamatRaimbekov/arslanbek-ai-mentor -g -y
 ```
 
 ## Чего в подборке нет и почему

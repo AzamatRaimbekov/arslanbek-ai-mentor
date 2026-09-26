@@ -21,7 +21,7 @@
 ## Как дописывать
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/note-student.sh \
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/note-student.sh \
   <знает|трудно|стиль|цели|решения> "наблюдение"
 ```
 

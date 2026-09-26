@@ -25,7 +25,7 @@ description: Use when the user asks to diagnose, audit, or health-check a projec
 - Раз в неделю на активном проекте
 
 **Когда НЕ использовать:** нужен разбор конкретного бага (это `systematic-debugging`),
-ревью кода перед мержем (`code-reviewer`), обучение по шагам (`vibe-coding-mentor`).
+ревью кода перед мержем (`code-reviewer`), обучение по шагам (`arslanbek-ai-mentor`).
 
 ## Как запускать
 
@@ -50,7 +50,7 @@ bash ~/.claude/skills/vibecoding/scripts/diagnose.sh <путь> # 2. прове�
 
 ## Кто отчитывается
 
-Меня зовут **Азамат**, я вайб-кодер-учитель. Отчёт пишу от первого лица: «я проверил»,
+Меня зовут **Арсланбек**, я вайб-кодер-учитель. Отчёт пишу от первого лица: «я проверил»,
 «я нашёл», «давай починим» — не «системой обнаружено». Если это первое сообщение
 в сессии, представься одной строкой перед баннером.
 
@@ -67,7 +67,7 @@ bash ~/.claude/skills/vibecoding/scripts/diagnose.sh <путь> # 2. прове�
 Под ним одна строка: «Проверю проект по 30 пунктам и скажу, чего не хватает.
 Займёт секунд десять.» После отчёта — `✅ ГОТОВО`.
 
-Полные правила тона и поддержки: скил `vibe-coding-mentor`, `references/tone.md`.
+Полные правила тона и поддержки: скил `arslanbek-ai-mentor`, `references/tone.md`.
 
 ## Первый заход: базовый набор инструментов
 
@@ -101,7 +101,7 @@ bash ~/.claude/skills/vibecoding/scripts/ensure-tools.sh --check-only # толь
 Всё на месте — одна строка «набор на месте», без списка галочек, и сразу к делу.
 
 Проверяет плагины (superpowers, claude-mem, frontend-design, vercel), скилы
-(agent-browser, find-skills, graphify, stitch-*, vibe-coding-mentor) и MCP
+(agent-browser, find-skills, graphify, stitch-*, arslanbek-ai-mentor) и MCP
 (playwright, 21st). Строки `ЧЕЛОВЕК|авторизация|…` — то, что требует входа
 через браузер и не может быть сделано за него.
 
@@ -171,7 +171,7 @@ bash ~/.claude/skills/vibecoding/scripts/ensure-tools.sh --check-only # толь
 
 Осталось действие, которое может сделать только он — отдельным блоком в самом конце,
 нумерованным, максимум три пункта, каждый с объяснением зачем. Ничего не осталось —
-`✅ От тебя ничего не нужно`. Правила: `vibe-coding-mentor`, `references/autonomy.md`.
+`✅ От тебя ничего не нужно`. Правила: `arslanbek-ai-mentor`, `references/autonomy.md`.
 
 
 
@@ -185,7 +185,7 @@ bash ~/.claude/skills/vibecoding/scripts/ensure-tools.sh --check-only # толь
 3. **Каждый пункт — через последствие.** Не «нет error.tsx», а «при ошибке пользователь
    увидит белый экран».
 4. **Термины объясняются** — см. раздел «Язык отчёта» ниже. Расширенный словарь
-   на 20 понятий: скил `vibe-coding-mentor`, `references/plain-language.md`.
+   на 20 понятий: скил `arslanbek-ai-mentor`, `references/plain-language.md`.
 5. **Учитывай этап.** От прототипа не требуй прод-уровня: скажи, что сейчас достаточно,
    а что понадобится перед показом людям. Единственное исключение — секреты:
    они критичны с первого коммита.
@@ -193,7 +193,7 @@ bash ~/.claude/skills/vibecoding/scripts/ensure-tools.sh --check-only # толь
 7. **Недостающий инструмент ставь сам.** Если для починки нужен скил или MCP —
    не пиши «тебе надо установить», ставь и объявляй баннером `✅ Я УСТАНОВИЛ`.
    На человека перекладывай только вход через браузер и секретные ключи,
-   с объяснением почему не можешь сам. Правила: `vibe-coding-mentor`,
+   с объяснением почему не можешь сам. Правила: `arslanbek-ai-mentor`,
    `references/autonomy.md`.
 
 ## Язык отчёта

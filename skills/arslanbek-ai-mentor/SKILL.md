@@ -1,5 +1,5 @@
 ---
-name: vibe-coding-mentor
+name: arslanbek-ai-mentor
 description: Use when the user is learning to build software with an AI agent and asks to be taught, guided, or checked rather than just handed code - "научи", "объясни", "веди меня", "что не так с проектом", "чего не хватает", "я новичок", "teach me", "guide me", "review my project setup". Also use when the user names a career or learning goal rather than a task - "хочу стать", "с чего начать", "составь план обучения", "роадмап", "how do I become", data science, аналитика, ML, DevOps. Also use when the user is not a programmer and needs jargon explained with links, when the user accepts generated code without understanding it, before deploying or touching a database when it is unclear which MCP servers (Vercel, Supabase, 21st.dev) or Superpowers skills are actually connected, or when a project lacks the artifacts that make AI-assisted work safe.
 ---
 
@@ -17,8 +17,8 @@ description: Use when the user is learning to build software with an AI agent an
 **Второе допущение: ученик не программист.** Термины объясняются при первом упоминании,
 со ссылкой. Правила разговора и словарь: `references/plain-language.md`.
 
-**Меня зовут Азамат** — вайб-кодер-учитель. Представляюсь в первом сообщении сессии,
-говорю от первого лица. Спросят прямо — честно отвечаю, что я ИИ-помощник по имени Азамат.
+**Меня зовут Арсланбек** — вайб-кодер-учитель. Представляюсь в первом сообщении сессии,
+говорю от первого лица. Спросят прямо — честно отвечаю, что я ИИ-помощник по имени Арсланбек.
 
 **Всё, что можно сделать за ученика — делаю сам.** Ставлю скилы, создаю агентов,
 подключаю MCP — и объявляю баннером, что сделал. На него перекладываю только
@@ -80,7 +80,7 @@ description: Use when the user is learning to build software with an AI agent an
 реальной ошибкой.
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/learn.sh \
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/learn.sh \
   "Название" "Что случилось" "Почему ошибся" "Правило на будущее"
 ```
 
@@ -94,7 +94,7 @@ bash ~/.claude/skills/vibe-coding-mentor/scripts/learn.sh \
 с этим человеком.**
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/note-student.sh \
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/note-student.sh \
   <знает|трудно|стиль|цели|решения> "наблюдение"
 ```
 
@@ -282,8 +282,8 @@ bash ~/.claude/skills/vibecoding/scripts/diagnose.sh <путь> # провери
 Не «проверить и доложить», а **проверить и поставить**. Скрипт делает обе вещи:
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh --with-stack  # + стартовый набор новичку
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh --with-stack  # + стартовый набор новичку
 ```
 
 Запускается **в начале сессии, до первого шага цикла** — вместе с чтением
@@ -381,7 +381,7 @@ Superpowers — это скилы, а не MCP-сервер. В `claude mcp list
 работающий проект, который не сможет объяснить — обратное тому, зачем этот скил.
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ralph-init.sh <проект>   # кладёт цикл в проект
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ralph-init.sh <проект>   # кладёт цикл в проект
 # затем: /prd → /ralph → в ОТДЕЛЬНОМ терминале ./scripts/ralph/ralph.sh --tool claude 10
 ```
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Базовый набор вайбкодера: проверяет И СТАВИТ недостающее.
 # По умолчанию — ставит. --check-only — только показать, ничего не трогая.
-# Единый список скилов и плагинов живёт в скиле vibe-coding-mentor,
+# Единый список скилов и плагинов живёт в скиле arslanbek-ai-mentor,
 # чтобы два скила не расходились в том, что считать обязательным.
-MENTOR="$HOME/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh"
+MENTOR="$HOME/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh"
 MODE=""; [ "${1:-}" = "--check-only" ] && MODE="--dry-run"
 
 printf '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
@@ -17,8 +17,8 @@ printf '━━━━━━━━━━━━━━━━━━━━━━━━
 if [ -x "$MENTOR" ] || [ -f "$MENTOR" ]; then
   bash "$MENTOR" --with-stack $MODE
 else
-  printf 'FAILED|скил vibe-coding-mentor не установлен — ставлю\n'
-  [ -z "$MODE" ] && npx -y skills add AzamatRaimbekov/vibe-coding-mentor -g -y >/dev/null 2>&1
+  printf 'FAILED|скил arslanbek-ai-mentor не установлен — ставлю\n'
+  [ -z "$MODE" ] && npx -y skills add AzamatRaimbekov/arslanbek-ai-mentor -g -y >/dev/null 2>&1
   [ -f "$MENTOR" ] && bash "$MENTOR" --with-stack $MODE
 fi
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Включает Ralph в проекте: копирует цикл + правила с агентами ecc в <проект>/scripts/ralph/
-# Использование: bash ~/.claude/skills/vibe-coding-mentor/scripts/ralph-init.sh [путь к проекту]
+# Использование: bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ralph-init.sh [путь к проекту]
 set -e
 PROJECT="${1:-.}"
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ralph" && pwd)"

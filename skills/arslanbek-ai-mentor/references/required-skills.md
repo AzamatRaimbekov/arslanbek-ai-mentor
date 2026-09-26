@@ -24,7 +24,7 @@ npx skills find <название>              # поиск остальног�
 ## Проверка — она же установка
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh
 ```
 
 Скрипт не докладывает о нехватке — он её закрывает: ставит плагины и процессные

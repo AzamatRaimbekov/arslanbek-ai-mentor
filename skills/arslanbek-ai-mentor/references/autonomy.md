@@ -33,7 +33,7 @@
 Не обходи список руками и не спрашивай разрешения на очевидное:
 
 ```bash
-bash ~/.claude/skills/vibe-coding-mentor/scripts/ensure-tools.sh --with-stack
+bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh --with-stack
 ```
 
 Ставит плагины (`superpowers`, `claude-mem`, `frontend-design`, `vercel`),

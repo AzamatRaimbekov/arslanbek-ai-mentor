@@ -3,7 +3,7 @@
 #   note-student.sh <раздел> "наблюдение"
 # Разделы: знает | трудно | стиль | цели | решения
 set -u
-F="$HOME/.claude/skills/vibe-coding-mentor/references/student-profile.md"
+F="$HOME/.claude/skills/arslanbek-ai-mentor/references/student-profile.md"
 [ $# -eq 2 ] || { echo "Нужно: note-student.sh <знает|трудно|стиль|цели|решения> \"наблюдение\""; exit 1; }
 case "$1" in
   знает)   H="## Что уже уверенно знает" ;;

@@ -1,0 +1,32 @@
+{
+  "feature": "Readable grouped competency matrix in the student development card",
+  "dashboard_url": "https://frontend-production-a08a.up.railway.app",
+  "frontend_deployment": "8129e528-5a86-4696-89e0-e61859fdbdfd",
+  "previous_frontend_deployment": "e5b1f121-e086-4f45-afc2-50ffdf16a1a1",
+  "backend_deployment": "f021d945-f162-4e0d-b134-314908758615",
+  "skill_release_version": "9.0.0",
+  "changes": [
+    "11 native button cards grouped by AI workflow, tools and product development",
+    "Readable titles, distinct observation states, observation and independent-task counts",
+    "Coverage counters and a segmented observation-state bar without inferred mastery scores",
+    "Selected-card outline, keyboard activation and automatic navigation to sourced evidence",
+    "Three-column desktop and two-column mobile layouts with an accessible single wide card for odd groups"
+  ],
+  "validation": {
+    "typescript_and_production_build": "passed",
+    "observability_browser_tests": 3,
+    "dashboard_browser_tests": 4,
+    "desktop_and_mobile_visual_review": "passed",
+    "production_login_summaries_matrix_groups_and_selection": "passed",
+    "production_375px_card_bounds_text_overflow_and_evidence_navigation": "passed",
+    "production_tools_privacy_tabs_public_install_guide_and_logout": "passed",
+    "published_download_checksums": "passed",
+    "no_production_student_records_modified": true
+  },
+  "scope": "Dashboard presentation and interaction only. Existing observations and skill distributions retained; no schema or data-collection changes.",
+  "archive_sha256": {
+    "arslanbek-ai-mentor.zip": "b879f0398ea377b7b02e86ff225071c3d1c692966348bf3a1dfd66e4758871bb",
+    "arslanbek-codex.zip": "1f2f7f5c4371142e313b6cb048b6444ece90d478c97a1b8e84a8e18ae3dcaee1",
+    "arslanbek-claude-desktop.mcpb": "0796704918b47b94e904bdc4eb8e5b004d07771f9eed9c42b8b8dc7c04178b0c"
+  }
+}

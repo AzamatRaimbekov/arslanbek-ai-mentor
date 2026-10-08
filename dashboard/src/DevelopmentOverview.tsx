@@ -1,11 +1,14 @@
 import { BrainCircuit, ArrowUpRight, CheckCircle2, Compass, Layers, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import CompetencyMatrix from './CompetencyMatrix';
 import { formatDate, formatNumber } from './data';
 import { COMPETENCIES, actorName, skillState, stateName, tagName, type CompetencyId, type StudentObservability } from './observability';
 import { clientName } from './progress';
 
 export default function DevelopmentOverview({ data, onTag, onSummary }: { data: StudentObservability; onTag: (tag: string) => void; onSummary: (id: number) => void }) {
   const [selected, setSelected] = useState<CompetencyId>('prompt_engineering');
+  const detailId = useId();
+  const detailRef = useRef<HTMLElement>(null);
   const definition = COMPETENCIES.find(c => c.id === selected)!;
   const stat = data.skills.find(s => s.competency_id === selected);
   const evidence = data.evidence.filter(e => e.competency_id === selected);
@@ -14,25 +17,8 @@ export default function DevelopmentOverview({ data, onTag, onSummary }: { data: 
     <div className="development-metrics">{[
       ['Дней с промптами', data.metrics.active_days], ['Задач отмечено готовыми', data.metrics.completed_tasks], ['Срезов наставника', data.metrics.summaries], ['Промптов в периоде', data.metrics.prompts],
     ].map(([label, value]) => <div key={String(label)}><b>{formatNumber(Number(value))}</b><span>{label}</span></div>)}</div>
-    <section className="learning-map"><div className="report-section-heading"><h3><BrainCircuit size={18} />Карта навыков</h3><span>Выберите направление, чтобы увидеть подтверждения</span></div>
-      <svg className="knowledge-network" viewBox="0 0 660 435" role="group" aria-label="Интерактивная карта навыков ученика">
-        <circle cx="330" cy="210" r="137" className="knowledge-orbit" />
-        {COMPETENCIES.map((c, index) => {
-          const angle = -Math.PI / 2 + index * 2 * Math.PI / COMPETENCIES.length;
-          const x = 330 + 260 * Math.cos(angle), y = 210 + 150 * Math.sin(angle);
-          const state = skillState(data.skills.find(s => s.competency_id === c.id));
-          return <g key={c.id} className={`knowledge-node knowledge-${state}${selected === c.id ? ' is-selected' : ''}`} role="button" tabIndex={0} aria-label={`${c.label}: ${stateName(state)}`} aria-pressed={selected === c.id}
-            onClick={() => setSelected(c.id)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(c.id); } }}>
-            <line x1="330" y1="210" x2={x} y2={y} /><circle cx={x} cy={y} r="24" /><text x={x} y={y + 5} textAnchor="middle" className="knowledge-code">{c.code}</text><text x={x} y={y + 44} textAnchor="middle" className="knowledge-label">{c.short}</text>
-          </g>;
-        })}
-        <circle cx="330" cy="210" r="52" className="knowledge-center" /><text x="330" y="208" textAnchor="middle" className="knowledge-center-label">ОБУЧЕНИЕ</text><text x="330" y="229" textAnchor="middle" className="knowledge-center-note">{data.skills.length} / 11 направлений</text>
-      </svg>
-      <div className="knowledge-mobile-choices" aria-label="Выбор навыка">{COMPETENCIES.map(c => <button key={c.id} aria-pressed={selected === c.id} onClick={() => setSelected(c.id)}>{c.short}</button>)}</div>
-      <div className="knowledge-legend">{['repeated', 'demonstrated', 'practiced', 'needs_practice', 'unknown'].map(state => <span key={state}><i className={`knowledge-dot knowledge-${state}`} />{stateName(state)}</span>)}</div>
-      <p className="observability-note">«Повторно подтверждено» — самостоятельные действия или объяснения в двух разных задачах по наблюдениям наставника. Это основание для проверки преподавателем, а не окончательная оценка знаний.</p>
-    </section>
-    <section className="competency-detail" aria-live="polite"><div className="competency-title"><div><span className={`competency-state state-${skillState(stat)}`}>{stateName(skillState(stat))}</span><h3>{definition.label}</h3></div>{stat && <span>{stat.tasks} задач · {stat.independent_tasks} самостоятельных подтверждений</span>}</div>
+    <CompetencyMatrix skills={data.skills} selected={selected} detailId={detailId} onSelect={id => { setSelected(id); detailRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); }} />
+    <section id={detailId} ref={detailRef} className="competency-detail" aria-live="polite"><div className="competency-title"><div><span className="competency-detail-label">ВЫБРАННОЕ НАПРАВЛЕНИЕ</span><h3>{definition.label}</h3><span className={`competency-state state-${skillState(stat)}`}>{stateName(skillState(stat))}</span></div>{stat && <div className="competency-detail-counts"><span><b>{stat.tasks}</b>Задач</span><span><b>{stat.independent_tasks}</b>Самостоятельных</span></div>}</div>
       <div className="competency-probe"><Sparkles size={18} /><div><b>Как проверить понимание</b><p>{stat?.next_action || definition.probe}</p></div></div>
       {evidence.length ? <div className="evidence-timeline">{evidence.map((e, index) => <article key={`${e.summary_id}-${index}`}><span className="evidence-dot" /><div className="evidence-meta"><time>{formatDate(e.created_at, true)}</time><span>{actorName(e.actor)}</span><span>{e.source === 'legacy_report' ? 'Ранний срез наставника' : 'Наблюдение наставника'}</span></div><h4>{e.task}</h4><p>{e.evidence || 'Конкретное подтверждение не передано.'}</p><button className="text-button" onClick={() => onSummary(e.summary_id)}>Открыть исходную сводку <ArrowUpRight size={14} /></button></article>)}</div> : <p className="report-empty-note">За этот период нет подтверждений. Это не означает, что ученик не владеет навыком.</p>}
       {evidence.length === 8 && <p className="observability-note">Показаны 8 последних наблюдений по направлению. Счётчики учитывают весь выбранный период.</p>}

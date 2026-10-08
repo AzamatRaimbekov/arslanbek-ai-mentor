@@ -10,7 +10,7 @@ test('knowledge map opens sourced evidence, filters tagged prompts and distingui
   await expect(dialog.getByText('Самостоятельно сформулировал цель корзины')).toBeVisible();
   await dialog.locator('.knowledge-node').filter({ hasText: 'Контекст' }).click();
   await expect(dialog.getByText('За этот период нет подтверждений.', { exact: false })).toBeVisible();
-  await dialog.locator('.knowledge-node').filter({ hasText: 'Промпты' }).focus();
+  await dialog.getByRole('button', { name: /^Промпт-инжиниринг:/ }).focus();
   await page.keyboard.press('Enter');
   await dialog.getByRole('button', { name: 'Открыть исходную сводку' }).first().click();
   await expect(dialog.getByRole('heading', { name: 'Исходная сводка наблюдения' })).toBeVisible();
@@ -25,7 +25,8 @@ test('knowledge map opens sourced evidence, filters tagged prompts and distingui
   await expect(dialog.getByText('example-skill', { exact: false })).toBeVisible();
   await expect(dialog.getByText('Выполнил агент', { exact: false }).first()).toBeVisible();
   await dialog.getByRole('tab', { name: 'Развитие', exact: true }).click();
-  await page.screenshot({ path: '/private/tmp/arslanbek-development-desktop.png', fullPage: true });
+  await page.setViewportSize({ width: 1366, height: 1500 });
+  await dialog.locator('.learning-map').screenshot({ path: '/private/tmp/arslanbek-matrix-desktop.png' });
 });
 
 test('teacher notification opens an alert; false positive review updates the audit state and badge', async ({ page }) => {
@@ -45,8 +46,25 @@ test('student skill map fits a mobile screen and remains usable', async ({ page 
   await loginWithFixtures(page);
   await page.getByRole('button', { name: 'Открыть профиль: Айдана Абдылдаева' }).click();
   await expect(page.getByRole('heading', { name: 'Что ученик осваивает' })).toBeVisible();
-  const box = await page.locator('.knowledge-network').boundingBox();
-  expect(box!.width).toBeLessThan(375);
-  await page.locator('.knowledge-network').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: '/private/tmp/arslanbek-development-mobile.png' });
+  const dialog = page.getByRole('dialog');
+  const matrix = dialog.getByRole('region', { name: 'Матрица компетенций' });
+  const box = await matrix.boundingBox();
+  expect(box!.x).toBeGreaterThanOrEqual(0);
+  expect(box!.x + box!.width).toBeLessThanOrEqual(375);
+  const cards = await matrix.getByRole('button').all();
+  expect(cards).toHaveLength(11);
+  for (const card of cards) {
+    const bounds = await card.boundingBox();
+    expect(bounds!.width).toBeGreaterThan(100);
+    expect(bounds!.height).toBeGreaterThanOrEqual(44);
+    expect(bounds!.x).toBeGreaterThanOrEqual(box!.x);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(box!.x + box!.width);
+    expect(await card.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
+  }
+  await matrix.getByRole('button', { name: /^Контекст-инжиниринг:/ }).click();
+  await expect(dialog.locator('.competency-detail').getByRole('heading', { name: 'Контекст-инжиниринг' })).toBeInViewport();
+  await expect(matrix.getByRole('button', { name: /^Контекст-инжиниринг:/ })).toHaveAttribute('aria-pressed', 'true');
+  await page.setViewportSize({ width: 375, height: 2400 });
+  await matrix.evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await matrix.screenshot({ path: '/private/tmp/arslanbek-matrix-mobile.png' });
 });

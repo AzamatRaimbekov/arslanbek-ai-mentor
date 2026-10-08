@@ -77,6 +77,15 @@ try {
     await page.getByRole('dialog').locator('.work-report').waitFor();
     await page.getByRole('dialog').getByRole('heading', { name: 'Что ученик осваивает' }).waitFor();
     assert.equal(await page.getByRole('dialog').locator('.knowledge-node').count(), 11);
+    const matrix = page.getByRole('dialog').getByRole('region', { name: 'Матрица компетенций' });
+    assert.equal(await matrix.getByRole('button').count(), 11);
+    for (const name of ['Работа с ИИ', 'Инструменты и автоматизация', 'Разработка продукта']) {
+      assert.equal(await matrix.getByRole('heading', { name, exact: true }).count(), 1);
+    }
+    const firstCompetency = matrix.getByRole('button').first();
+    await firstCompetency.click();
+    assert.equal(await firstCompetency.getAttribute('aria-pressed'), 'true');
+    assert.equal(await page.getByRole('dialog').locator('.competency-detail').getAttribute('id'), await firstCompetency.getAttribute('aria-controls'));
     assert.equal(await page.getByRole('dialog').getByRole('alert').count(), 0);
     await page.getByRole('dialog').getByRole('tab', { name: 'Инструменты', exact: true }).click();
     await page.getByRole('dialog').getByRole('heading', { name: 'Инструменты и способы работы' }).waitFor();
@@ -84,10 +93,22 @@ try {
     await page.getByRole('dialog').getByRole('heading', { name: 'Сигналы для проверки' }).waitFor();
     await page.waitForFunction(() => !document.querySelector('.security-panel .loading'));
     assert.equal(await page.getByRole('dialog').getByRole('alert').count(), 0);
+    await page.setViewportSize({ width: 375, height: 900 });
+    await page.getByRole('dialog').getByRole('tab', { name: 'Развитие', exact: true }).click();
+    for (const card of await matrix.getByRole('button').all()) {
+      const bounds = await card.boundingBox();
+      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= 375, 'Competency card fits a mobile viewport');
+      assert.ok(bounds.width > 100 && bounds.height >= 44, 'Competency card remains readable and tappable');
+      assert.ok(await card.evaluate(el => el.scrollWidth <= el.clientWidth), 'Competency text does not overflow');
+    }
+    await matrix.getByRole('button').first().click();
+    const detail = await page.getByRole('dialog').locator('.competency-detail').boundingBox();
+    assert.ok(detail && detail.y >= 50 && detail.y < 900, 'Selecting a competency reveals its evidence below the sticky header');
+    await page.setViewportSize({ width: 1280, height: 720 });
     await page.getByRole('button', { name: 'Закрыть', exact: true }).click();
   }
   await page.getByRole('button', { name: 'Выйти из аккаунта' }).click();
   await page.getByRole('button', { name: 'Войти в кабинет' }).waitFor();
   assert.deepEqual(errors, []);
-  console.info('PASS: public install guide, Claude Desktop and Codex downloads, all release checksums, copying share link, browser login, summaries, logout, no JavaScript errors.');
+  console.info('PASS: public install guide, all release checksums, share link, login, summaries, interactive competency matrix, tools, privacy tabs, logout, no JavaScript errors.');
 } finally { await browser.close(); }

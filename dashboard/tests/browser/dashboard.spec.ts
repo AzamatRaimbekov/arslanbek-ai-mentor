@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { loginWithFixtures } from './mock-supabase';
 
 test('overview, filters, student history, editing and CSV export work together', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
-  await page.goto('/');
+  await loginWithFixtures(page);
   await expect(page.getByRole('heading', { name: 'Каждый ученик — на виду.' })).toBeVisible();
-  await expect(page.getByText('Вы смотрите демонстрационные данные.', { exact: false })).toBeVisible();
+  await expect(page.getByText('База подключена', { exact: true })).toBeVisible();
   await expect(page.locator('tbody tr')).toHaveCount(8);
   await page.screenshot({ path: test.info().outputPath('desktop.png'), fullPage: true });
   await page.getByLabel('Период статистики').selectOption('14');
@@ -22,19 +23,20 @@ test('overview, filters, student history, editing and CSV export work together',
   await dialog.getByRole('button', { name: 'Следующая страница' }).click();
   await expect(dialog.locator('.history-card')).toHaveCount(8);
   await page.getByRole('tab', { name: 'Прогресс', exact: true }).click();
-  await expect(dialog.getByText('Следующий шаг', { exact: true })).toHaveCount(3);
+  await expect(dialog.getByText('Следующий шаг', { exact: true })).toHaveCount(2);
+  await expect(dialog.getByText('Что требуется сейчас', { exact: false })).toBeVisible();
   await page.getByRole('tab', { name: 'Профиль', exact: true }).click();
   await dialog.getByLabel('Имя в дашборде').fill('Айдана — тест');
   await dialog.getByLabel('Группа', { exact: true }).fill('Тестовая группа');
   await dialog.getByRole('button', { name: 'Сохранить', exact: true }).click();
-  await expect(dialog.getByText('Сохранено в демо до перезагрузки')).toBeVisible();
+  await expect(dialog.getByText('Изменения сохранены')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
   await expect(page.getByRole('button', { name: 'Открыть профиль: Айдана — тест' })).toBeVisible();
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Экспорт CSV' }).click();
   const download = await downloadPromise;
-  expect(download.suggestedFilename()).toContain('-demo-');
+  expect(download.suggestedFilename()).toMatch(/^arslanbek-students-\d{4}-\d{2}-\d{2}\.csv$/);
   const stream = await download.createReadStream();
   const chunks = []; for await (const chunk of stream!) chunks.push(chunk);
   const csv = Buffer.concat(chunks).toString('utf8');
@@ -50,13 +52,32 @@ test('overview, filters, student history, editing and CSV export work together',
   await page.getByRole('button', { name: 'История промптов' }).click();
   await expect(page.locator('.feed-list .history-card')).toHaveCount(20);
   await page.getByRole('button', { name: 'Подключение', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Подключите свою школу' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'База данных подключена' })).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test('summary feed shows skill summaries, opens their participant and paginates without an AI request', async ({ page }) => {
+  const aiRequests: string[] = [];
+  page.on('request', request => { if (request.url().includes('/functions/')) aiRequests.push(request.url()); });
+  await loginWithFixtures(page);
+  await page.getByRole('button', { name: 'Сводки', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Как продвигается работа.' })).toBeVisible();
+  await expect(page.locator('.summary-feed-entry')).toHaveCount(20);
+  await expect(page.locator('.summary-feed-entry').first()).toContainText('Айдана Абдылдаева');
+  await expect(page.locator('.summary-feed-entry').first()).toContainText('Что требуется сейчас');
+  await page.locator('.summary-feed-entry').first().getByRole('button').click();
+  await expect(page.getByRole('dialog')).toContainText('Айдана Абдылдаева');
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Следующая страница' }).click();
+  await expect(page.getByText('Страница 2 из 3')).toBeVisible();
+  await page.getByRole('button', { name: 'Следующая страница' }).click();
+  await expect(page.locator('.summary-feed-entry')).toHaveCount(8);
+  expect(aiRequests).toEqual([]);
 });
 
 test('mobile layout has no page overflow and navigation and dialogs are usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await loginWithFixtures(page);
   await expect(page.locator('tbody tr')).toHaveCount(8);
   await page.screenshot({ path: test.info().outputPath('mobile.png'), fullPage: true });
   const overflow = await page.evaluate(() => Array.from(document.querySelectorAll('body *')).filter(el => el.getBoundingClientRect().right > window.innerWidth + 1 && getComputedStyle(el).position !== 'fixed' && !el.closest('.table-scroll')).map(el => `${el.tagName}.${el.className}: ${el.getBoundingClientRect().right}`));
@@ -70,4 +91,28 @@ test('mobile layout has no page overflow and navigation and dialogs are usable',
   expect(await page.getByRole('dialog').evaluate(el => el.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Закрыть', exact: true }).click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
+});
+
+
+test('progress shows evidence, stage and actionable next steps on desktop and mobile', async ({ page }) => {
+  await loginWithFixtures(page);
+  await page.getByRole('button', { name: 'Открыть профиль: Айдана Абдылдаева' }).click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog.getByRole('heading', { name: 'Корзина интернет-магазина' })).toBeVisible();
+  await expect(dialog.locator('[aria-current="step"]')).toHaveText('4Проверить');
+  await expect(dialog.getByText('Сделал сотрудник', { exact: true })).toBeVisible();
+  await expect(dialog.getByText('Помог ИИ', { exact: true })).toBeVisible();
+  await expect(dialog.getByText('Готово, когда', { exact: true })).toBeVisible();
+  await expect(dialog.getByText('Codex', { exact: true })).toBeVisible();
+  await expect(dialog.locator('.skill-observation')).toHaveCount(3);
+  await expect(dialog.locator('.profile-text')).toHaveCount(0);
+  await dialog.getByText('Что пока неизвестно', { exact: true }).click();
+  await expect(dialog.getByText('Код написал агент; самостоятельное владение реализацией не проверено.')).toBeVisible();
+  await dialog.locator('.work-report').evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await dialog.screenshot({ path: test.info().outputPath('progress-desktop.png') });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(dialog).toBeVisible();
+  expect(await dialog.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+  await dialog.locator('.work-report').evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await dialog.screenshot({ path: test.info().outputPath('progress-mobile.png') });
 });

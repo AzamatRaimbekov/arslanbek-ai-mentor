@@ -1,0 +1,11 @@
+{
+  "projectId": "f5a65960-fef7-4d81-96b5-b11e6c55794e",
+  "environmentId": "0b1f7e21-8824-440d-98ef-427cc2e93792",
+  "services": {
+    "Postgres": "611e2055-c4f1-430a-abc3-46dfbc4fa1c2",
+    "backend": "97ec7e65-f69b-443d-93f5-52688dbce020",
+    "frontend": "2dd250ee-a121-48ef-b58c-db49a14f842c",
+    "auth": "92f3afdb-8d2b-4f44-a3c4-c221389b58ce",
+    "rest": "93a24300-6d1b-486a-8b11-c7b501d4c8b5"
+  }
+}

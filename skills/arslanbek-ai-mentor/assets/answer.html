@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>${title} · Арсланбек Ментор</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ground: #f3f1eb; --paper: #fffefb; --ink: #202b29; --muted: #596560;
+      --line: #d9ddd5; --accent: #126449; --code: #e9ede7;
+      --success: #176447; --success-bg: #e7f3ec; --warning: #80520a; --warning-bg: #fff3d6;
+      --danger: #a5282e; --danger-bg: #fdebed; --info: #265ea0; --info-bg: #eaf1fb;
+      --radius: 14px; --measure: 74ch;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ground: #101917; --paper: #17231f; --ink: #edf2e9; --muted: #afbdb4;
+        --line: #34453b; --accent: #8cdbb3; --code: #24332c;
+        --success: #a0e6ba; --success-bg: #203d2e; --warning: #f2cf84; --warning-bg: #3b321d;
+        --danger: #ffb3b7; --danger-bg: #44262b; --info: #b0d1ff; --info-bg: #24364c;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 28px; }
+    body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: var(--accent); text-underline-offset: 4px; overflow-wrap: anywhere; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; border-radius: 2px; }
+    .skip { position: absolute; left: 20px; top: -100px; padding: 10px 16px; background: var(--paper); z-index: 2; }
+    .skip:focus { top: 12px; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 0 38px; }
+    .masthead { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 25px 0; border-bottom: 1px solid var(--line); }
+    .brand { font-size: 13px; font-weight: 750; letter-spacing: .08em; }
+    .edition { color: var(--muted); font-size: 12px; border: 1px solid var(--line); padding: 4px 12px; border-radius: 100px; white-space: nowrap; }
+    .layout { display: grid; grid-template-columns: 212px minmax(0, 1fr); gap: 44px; align-items: start; padding: 42px 0 56px; }
+    aside { position: sticky; top: 28px; min-width: 0; }
+    .eyebrow { color: var(--muted); text-transform: uppercase; font-size: 11px; font-weight: 750; letter-spacing: .12em; margin: 0 0 14px; }
+    nav ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+    nav a { display: flex; gap: 10px; padding: 9px 0; font-size: 13px; line-height: 1.5; text-decoration: none; color: var(--muted); }
+    nav a:hover { color: var(--accent); }
+    .nav-number { font: 12px/1.8 ui-monospace, monospace; color: var(--accent); }
+    .side-note { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    main { min-width: 0; max-width: var(--measure); }
+    .hero { margin-bottom: 28px; }
+    h1 { font: 600 clamp(30px, 4vw, 49px)/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.025em; margin: 0 0 18px; overflow-wrap: anywhere; }
+    .summary { font-size: 19px; color: var(--muted); line-height: 1.6; margin: 0; }
+    .block { --tone: var(--accent); --tint: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--tone); border-radius: var(--radius); background: var(--paper); margin: 18px 0; padding: 25px 28px; }
+    .block[data-kind="success"] { --tone: var(--success); --tint: var(--success-bg); }
+    .block[data-kind="warning"] { --tone: var(--warning); --tint: var(--warning-bg); }
+    .block[data-kind="danger"] { --tone: var(--danger); --tint: var(--danger-bg); }
+    .block[data-kind="info"] { --tone: var(--info); --tint: var(--info-bg); }
+    .block[data-kind="action"] { --tone: var(--accent); --tint: var(--success-bg); }
+    .block-head { display: flex; align-items: baseline; gap: 13px; margin-bottom: 15px; }
+    .number { color: var(--tone); font: 12px/1.5 ui-monospace, monospace; padding-top: 3px; flex-shrink: 0; }
+    h2 { margin: 0; color: var(--tone); font-size: 22px; font-weight: 730; line-height: 1.35; overflow-wrap: anywhere; }
+    .status { display: inline-block; margin-bottom: 13px; padding: 3px 9px; background: var(--tint); color: var(--tone); font-size: 11px; font-weight: 750; border-radius: 5px; }
+    p { margin: 0 0 15px; overflow-wrap: anywhere; }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 750; }
+    .block strong { color: var(--tone); }
+    ul, ol { margin: 13px 0 0; padding-left: 23px; }
+    li { padding-left: 5px; margin-bottom: 9px; overflow-wrap: anywhere; }
+    li::marker { color: var(--tone); font-weight: 750; }
+    code { font: .85em/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; background: var(--code); padding: 2px 5px; border-radius: 4px; }
+    pre { max-width: 100%; overflow: auto; padding: 17px; background: var(--code); border-radius: 9px; margin: 17px 0 0; }
+    pre code { background: none; padding: 0; border-radius: 0; white-space: pre; }
+    .code-label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+    .table-wrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    th { background: var(--tint); font-weight: 750; }
+    tr:last-child td { border-bottom: 0; }
+    .footnote { margin-top: 24px; color: var(--muted); font-size: 13px; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 30px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .page { padding: 0 18px; }
+      .masthead { padding: 18px 0; gap: 10px; }
+      .brand { font-size: 11px; letter-spacing: .035em; }
+      .edition { font-size: 10px; padding: 3px 8px; }
+      .layout { grid-template-columns: minmax(0, 1fr); gap: 25px; padding-top: 26px; }
+      aside { position: static; }
+      nav ol { display: flex; flex-wrap: wrap; gap: 7px; }
+      nav a { border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px; font-size: 12px; }
+      .side-note { display: none; }
+      .block { padding: 20px 18px; }
+      h2 { font-size: 20px; }
+      body { font-size: 16px; }
+      .summary { font-size: 17px; }
+    }
+    @media print {
+      :root { --ground: #fff; --paper: #fff; --ink: #111; --muted: #444; --line: #bbb; }
+      .page { max-width: none; padding: 0; }
+      aside, .skip, .edition { display: none; }
+      .layout { display: block; padding: 25px 0; }
+      main { max-width: none; }
+      .block { break-inside: avoid; box-shadow: none; }
+      pre { white-space: pre-wrap; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#answer">Перейти к ответу</a>
+  <div class="page">
+    <header class="masthead"><span class="brand">АРСЛАНБЕК / МЕНТОР</span><span class="edition">ЧАТ + HTML</span></header>
+    <div class="layout">
+      <aside><p class="eyebrow">В этом ответе</p><nav aria-label="Разделы ответа"><ol>${navigation}</ol></nav><p class="side-note">Результат, объяснение и следующий шаг — каждый в своём блоке.</p></aside>
+      <main id="answer">
+        <header class="hero"><p class="eyebrow">Понятный разбор</p><h1>${title}</h1>${summary}</header>
+        ${sections}
+        ${footnote}
+      </main>
+    </div>
+    <footer>Арсланбек Ментор · Содержание соответствует ответу в чате. Файл открывается без подключения к интернету.</footer>
+  </div>
+</body>
+</html>

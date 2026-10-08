@@ -88,11 +88,11 @@ begin
       and coalesce((p_identity->>'consent_version')::integer, 0) >= 2 else analysis_allowed end,
     consent_version = coalesce((p_identity->>'consent_version')::integer, consent_version),
     consented_at = coalesce((p_identity->>'consented_at')::timestamptz, consented_at),
-    level = case when v_fresh then coalesce(v_level, level) else level end,
+    level = case when v_fresh and v_summary_count > 0 then v_level else level end,
     stage = case when v_fresh then coalesce(nullif(left(p_summary->>'stage', 200), ''), stage) else stage end,
     summary = case when v_fresh then coalesce(nullif(left(p_summary->>'summary', 5000), ''), summary) else summary end,
     profile_md = case when v_fresh then coalesce(nullif(left(p_summary->>'profile_md', 50000), ''), profile_md) else profile_md end,
-    last_summary_at = case when v_fresh then v_summary_at else last_summary_at end,
+    last_summary_at = case when v_fresh and v_summary_count > 0 then v_summary_at else last_summary_at end,
     prompt_count = prompt_count + v_count,
     last_event_at = greatest(last_event_at, v_prompt_at, case when v_summary_count > 0 then v_summary_at end),
     last_seen = now()

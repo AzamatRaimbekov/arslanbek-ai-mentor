@@ -1,0 +1,22 @@
+{
+  "feature": "Codex and local MCP collection with structured progress UI",
+  "frontend_url": "https://frontend-production-a08a.up.railway.app",
+  "download_url": "https://frontend-production-a08a.up.railway.app/downloads/arslanbek-ai-mentor.zip",
+  "backend_deployment": "ea8e387c-e729-4f7c-ba1d-f00561e87f43",
+  "migration": "0005_multiclient_progress.sql",
+  "isolated_frontend_deployment": "3483955b-c730-4f4e-aac6-a0a580d4a2eb",
+  "isolated_archive_version": "telemetry-5-multiclient",
+  "isolated_archive_sha256": "4ee2c065bee17815fe32b9646f826bd6c59df95ce85611db27d1b4df289be0e7",
+  "verified_live_frontend_deployment": "646805c7-cc81-4720-a427-031776b96ebf",
+  "verified_live_archive_version": "telemetry-6-school-contract",
+  "verified_live_archive_sha256": "b915b551c5808380228786d87250ef4d360c68aeb7ed52218dbfe33cbcdf9888",
+  "concurrent_change": "Another publisher replaced the isolated release during verification. The live archive preserves the same Codex installer, MCP server and progress report implementation; it additionally includes school-policy.json. No second deployment was made to overwrite that publisher.",
+  "validation": {
+    "python_tests": 33,
+    "database_and_analysis_tests": 17,
+    "browser_tests": 6,
+    "production_schema_and_access": "passed",
+    "production_browser_login_summaries_profile_download_logout": "passed",
+    "production_archive_checksum": "passed against the downloaded live archive"
+  }
+}

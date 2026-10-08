@@ -5,6 +5,8 @@
 set -u
 REPO="https://github.com/AzamatRaimbekov/arslanbek-ai-mentor.git"
 SK="$HOME/.claude/skills"
+# School packages are updated from the dashboard, independently of GitHub main.
+[ -f "$SK/arslanbek-ai-mentor/.school-release" ] && exit 0
 STATE="$SK/arslanbek-ai-mentor/.state"; mkdir -p "$STATE"
 STAMP="$STATE/update-run"; INSTALLED="$STATE/installed-rev"; REPORT="$STATE/update-report.txt"
 CACHE="$HOME/.claude/.cache/arslanbek-ai-mentor-src"
@@ -42,7 +44,7 @@ for dir in "$CACHE"/skills/*/; do
     npx -y skills update -g -y >/dev/null 2>&1; updated="$updated $name(skills)"; continue
   fi
   rsync -a --exclude '.state' --exclude 'references/lessons.md' \
-        --exclude 'references/student-profile.md' "$dir" "$dst/" && updated="$updated $name"
+        --exclude 'references/student-profile.md' --exclude 'telemetry.local.conf' "$dir" "$dst/" && updated="$updated $name"
 done
 
 # 4. хуки — только те, что уже подключены

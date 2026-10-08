@@ -4,6 +4,11 @@ test('live mode requires login and an admin role, handles empty data, failures a
   let isAdmin = false;
   let statsFail = false;
   let statsRequests = 0;
+  let summaryReceived = false;
+  const testSummary = { id: 1, student_id: 'test-student', session_id: 'test-session', project: 'shop', level: null,
+    stage: 'Проверка корзины', summary: 'Проверили корзину. <img src=x onerror=alert(1)>', strengths: null, struggles: null,
+    next_step: 'Проверить отказ сервера.', created_at: new Date().toISOString(),
+    student: { display_name: 'Участник теста', claude_name: null, git_name: null, os_user: null } };
   const user = { id: '00000000-0000-4000-8000-000000000001', email: 'mentor@example.com', aud: 'authenticated', role: 'authenticated', app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() };
   const payload = Buffer.from(JSON.stringify({ sub: user.id, exp: Math.floor(Date.now() / 1000) + 3600, role: 'authenticated' })).toString('base64url');
   const token = `eyJhbGciOiJIUzI1NiJ9.${payload}.test-signature`;
@@ -21,6 +26,7 @@ test('live mode requires login and an admin role, handles empty data, failures a
       return route.fulfill({ json: { students: 0, new_students: 0, active_students: 0, prompts: 0, summaries: 0, average_level: null, unassessed: 0, groups: [], levels: Array.from({ length: 6 }, (_, level) => ({ level, count: 0 })), activity: Array.from({ length: 30 }, (_, i) => ({ date: new Date(Date.now() - (29 - i) * 86400000).toISOString().slice(0, 10), prompts: 0 })) }, headers });
     }
     if (url.pathname === '/rest/v1/students') return route.fulfill({ json: [], headers: { ...headers, 'content-range': '*/0' } });
+    if (url.pathname === '/rest/v1/summaries') return route.fulfill({ json: summaryReceived ? [testSummary] : [], headers: { ...headers, 'content-range': summaryReceived ? '0-0/1' : '*/0' } });
     return route.fulfill({ status: 404, json: { message: `Unexpected test request: ${url.pathname}` }, headers });
   });
   await page.goto('/');
@@ -35,6 +41,14 @@ test('live mode requires login and an admin role, handles empty data, failures a
   await expect(page.getByRole('heading', { name: 'Каждый ученик — на виду.' })).toBeVisible();
   await expect(page.getByText('Первые ученики скоро появятся')).toBeVisible();
   await expect(page.getByText('Демо-режим')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Сводки', exact: true }).click();
+  await expect(page.getByText('Сводок пока нет')).toBeVisible();
+  summaryReceived = true;
+  await page.getByRole('button', { name: 'Обновить данные' }).click();
+  await expect(page.locator('.summary-feed-entry')).toContainText('<img src=x onerror=alert(1)>');
+  await expect(page.locator('.summary-feed-entry img')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Сформировать отчёт' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Обзор', exact: true }).click();
   statsFail = true;
   await page.getByRole('button', { name: 'Обновить данные' }).click();
   await expect(page.getByRole('alert')).toContainText('Test database unavailable');

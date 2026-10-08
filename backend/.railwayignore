@@ -1,0 +1,6 @@
+.env*
+node_modules
+tests
+__pycache__
+supabase/.temp
+supabase/.branches

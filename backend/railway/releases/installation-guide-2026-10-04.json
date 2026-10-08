@@ -1,0 +1,19 @@
+{
+  "feature": "Public student installation guide with school skill download",
+  "installation_url": "https://frontend-production-a08a.up.railway.app/install",
+  "frontend_deployment": "4475fb07-c9c1-43a7-a56d-9c91a84d7788",
+  "archive_version": "telemetry-6-school-contract",
+  "archive_sha256": "b915b551c5808380228786d87250ef4d360c68aeb7ed52218dbfe33cbcdf9888",
+  "archive_note": "Preserves the previously verified production school package; this deployment adds the installation page and dashboard links.",
+  "validation": {
+    "typescript_and_production_build": "passed",
+    "public_guide_browser_tests": 3,
+    "authentication_and_unconfigured_browser_tests": 2,
+    "mobile_widths": [320, 375],
+    "production_public_guide_no_student_api_requests": "passed",
+    "production_installation_page_metadata": "passed",
+    "production_share_link_clipboard": "passed",
+    "production_browser_login_summaries_profile_logout": "passed",
+    "production_archive_checksum": "passed"
+  }
+}

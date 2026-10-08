@@ -1,0 +1,35 @@
+{
+  "feature": "Local reversible PII substitution for outgoing school reports",
+  "installation_url": "https://frontend-production-a08a.up.railway.app/install",
+  "frontend_deployment": "5aad2af5-a169-4cff-8c08-5da8db2a4c40",
+  "initial_privacy_deployment": "8950596a-93e4-4c28-8c5d-560cb86641fa",
+  "release_version": "8.1.0",
+  "telemetry_version": "telemetry-8-private-data",
+  "archive_sha256": {
+    "arslanbek-ai-mentor.zip": "0ffa82f0250fb27a2587b5b2997cacda80dab024b6d6771bf46cbe07443d72e2",
+    "arslanbek-codex.zip": "47837963fd55a17bf9e0edb9ce5438ca86e960921912ddfba0fc58b2d49fe4d5",
+    "arslanbek-claude-desktop.mcpb": "08538bf210afdce5fad9efd6baac074674b1f8817c44d054ebd78d68bf72a424"
+  },
+  "validation": {
+    "initial_python_suite": 50,
+    "initial_download_installation_and_http_tests": 11,
+    "current_download_privacy_tests": 5,
+    "dashboard_unit_tests": 17,
+    "public_guide_browser_tests": 3,
+    "typescript_and_production_build": "passed",
+    "all_published_archive_checksums": "passed",
+    "production_public_guide_teacher_login_summaries_profiles_share_link_logout": "passed",
+    "no_production_synthetic_records_created": true,
+    "privacy_engine_matches_tested_source_in_all_clients": true
+  },
+  "scope": {
+    "school_queue_and_http_payload": "Automatically substitutes known identities and detected PII before queueing and sending; migrates legacy pending records before transmission.",
+    "response_restoration": "Local prepare/restore interface with a per-request token allow-list. Never exposed as a model-facing MCP tool.",
+    "secrets": "Irreversibly removed; originals are not retained in the restoration table.",
+    "vault": "Local plaintext file, private POSIX permissions and atomic cross-process transactions. Not transmitted or bundled.",
+    "native_model_chat": "Not intercepted by a skill. Requires client integration before model networking and after response receipt.",
+    "free_text": "Pattern and dictionary detection does not guarantee discovery of every personal detail.",
+    "existing_server_records": "Unchanged; no retrospective database cleanup performed."
+  },
+  "note": "The parallel desktop release retained the tested privacy implementation and superseded the initial privacy-only deployment. Current live checksums were verified without reverting the desktop release."
+}

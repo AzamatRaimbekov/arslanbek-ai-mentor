@@ -1,0 +1,5 @@
+project_id = "arslanbek-mentor"
+
+[functions.analyze-team]
+# A verified user JWT is required before the handler's additional admin check.
+verify_jwt = true

@@ -1,1 +1,9 @@
 .claude-flow/
+**/telemetry.local.conf
+backend/.env*
+!backend/.env.example
+backend/supabase/.temp/
+backend/supabase/.branches/
+**/__pycache__/
+backend/node_modules/
+/.arslanbek/answers/

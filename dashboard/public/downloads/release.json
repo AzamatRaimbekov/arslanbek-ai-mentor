@@ -1,0 +1,18 @@
+{
+  "version": "9.0.0",
+  "windows_runtime_bundled": true,
+  "files": {
+    "arslanbek-ai-mentor.zip": {
+      "sha256": "b879f0398ea377b7b02e86ff225071c3d1c692966348bf3a1dfd66e4758871bb",
+      "bytes": 24149087
+    },
+    "arslanbek-codex.zip": {
+      "sha256": "1f2f7f5c4371142e313b6cb048b6444ece90d478c97a1b8e84a8e18ae3dcaee1",
+      "bytes": 24132692
+    },
+    "arslanbek-claude-desktop.mcpb": {
+      "sha256": "0796704918b47b94e904bdc4eb8e5b004d07771f9eed9c42b8b8dc7c04178b0c",
+      "bytes": 140069
+    }
+  }
+}

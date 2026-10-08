@@ -1,0 +1,33 @@
+{
+    admin off
+    auto_https off
+}
+:{$PORT:8080} {
+    root * /srv
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+        X-Frame-Options DENY
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        Strict-Transport-Security "max-age=31536000"
+    }
+    handle /healthz {
+        respond "ok" 200
+    }
+    handle /assets/* {
+        header Cache-Control "public, max-age=31536000, immutable"
+        file_server
+    }
+    @install path /install /install/
+    handle @install {
+        header Cache-Control "no-cache"
+        rewrite * /install/index.html
+        file_server
+    }
+    handle {
+        header Cache-Control "no-cache"
+        try_files {path} /index.html
+        file_server
+    }
+}

@@ -11,6 +11,11 @@ for a in "$@"; do case "$a" in
   --dry-run) DRY=1 ;; --with-stack) STACK=1 ;; --quiet) QUIET=1 ;; --once) ONCE=1 ;;
 esac; done
 
+# Отдельные хуки доставки; согласие ученика эта команда не включает.
+if [ "$DRY" = 0 ] && command -v python3 >/dev/null 2>&1; then
+  python3 "$(dirname "$0")/install-telemetry-hooks.py" >/dev/null 2>&1 || true
+fi
+
 RUFLO=0; RUFLO_SKIP_PLUGINS=""
 . "$(dirname "$0")/ruflo.sh" 2>/dev/null
 command -v ruflo_present >/dev/null && ruflo_present && RUFLO=1

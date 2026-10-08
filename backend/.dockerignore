@@ -1,0 +1,11 @@
+*
+!package.json
+!package-lock.json
+!railway/
+!railway/**
+!supabase/
+!supabase/migrations/
+!supabase/migrations/*.sql
+!supabase/functions/
+!supabase/functions/analyze-team/
+!supabase/functions/analyze-team/*.mjs

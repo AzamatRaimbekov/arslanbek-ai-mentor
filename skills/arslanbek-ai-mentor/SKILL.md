@@ -7,6 +7,7 @@ allowed-tools:
   - 'Bash(python3 "${CLAUDE_SKILL_DIR}/scripts/telemetry.py" summary *)'
   - 'Bash(python3 "${CLAUDE_SKILL_DIR}/scripts/telemetry.py" status)'
   - 'Bash(python3 "${CLAUDE_SKILL_DIR}/scripts/render_html.py" *)'
+  - 'Bash(python3 "${CLAUDE_SKILL_DIR}/scripts/activate_answer_mode.py" *)'
 description: Use when the user is learning to build software with an AI agent and asks to be taught, guided, or checked rather than just handed code - "научи", "объясни", "веди меня", "что не так с проектом", "чего не хватает", "я новичок", "teach me", "guide me", "review my project setup". Also use when the user names a career or learning goal rather than a task - "хочу стать", "с чего начать", "составь план обучения", "роадмап", "how do I become", data science, аналитика, ML, DevOps. Also use when the user is not a programmer and needs jargon explained with links, when the user accepts generated code without understanding it, before deploying or touching a database when it is unclear which MCP servers (Vercel, Supabase, 21st.dev) or Superpowers skills are actually connected, or when a project lacks the artifacts that make AI-assisted work safe.
 ---
 
@@ -89,6 +90,10 @@ description: Use when the user is learning to build software with an AI agent an
 и дополнительно сохраняю отдельным HTML с реальными цветами, карточками и оглавлением.
 Создаю файл сам и прикладываю ссылку; правило действует и в Claude, и в Codex.
 Порядок и встроенный инструмент: `references/html-answer.md`.
+При запуске в проекте сохраняй этот режим в проекте через
+`scripts/activate_answer_mode.py --project <корень-проекта>` по
+`references/html-answer.md`. Он действует для последующих финальных ответов
+и новых сессий Claude/Codex, даже без повторного вызова Ментора.
 По умолчанию отвечаю развёрнуто:
 заметные заголовки, **жирные ключевые мысли**, эмодзи по смыслу и выделенные карточки.
 Человек сразу видит результат, понимает объяснение и находит следующий шаг.

@@ -89,7 +89,13 @@
       .summary { font-size: 17px; }
     }
     @media print {
-      :root { --ground: #fff; --paper: #fff; --ink: #111; --muted: #444; --line: #bbb; }
+      :root {
+        color-scheme: light;
+        --ground: #fff; --paper: #fff; --ink: #111; --muted: #444; --line: #bbb;
+        --accent: #126449; --code: #e9ede7;
+        --success: #176447; --success-bg: #e7f3ec; --warning: #80520a; --warning-bg: #fff3d6;
+        --danger: #a5282e; --danger-bg: #fdebed; --info: #265ea0; --info-bg: #eaf1fb;
+      }
       .page { max-width: none; padding: 0; }
       aside, .skip, .edition { display: none; }
       .layout { display: block; padding: 25px 0; }

@@ -179,6 +179,12 @@ This rule is included in both the Claude and portable Codex instructions.
 Built-in renderer: `scripts/render_html.py`;
 workflow: [html-answer.md](skills/arslanbek-ai-mentor/references/html-answer.md).
 
+When activated in a project, the mentor persists the mode in `.arslanbek/answer-mode.json`
+and adds its managed block to `AGENTS.md` and `CLAUDE.md`. Later final replies and new
+sessions in that project use the same format without invoking the skill again.
+`scripts/activate_answer_mode.py` preserves unrelated instructions and a permanent
+chat-only choice; `--enable` restores HTML at the user's request.
+
 **Detailed, readable blocks are the default.** Markdown `##` and `###` headings
 create a visual hierarchy; **bold phrases** highlight the result, reason, condition,
 and next action. A substantial answer usually has 3–6 blocks: main answer →

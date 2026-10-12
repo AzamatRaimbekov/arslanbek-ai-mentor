@@ -1,0 +1,50 @@
+{
+  "release_version": "9.2.0",
+  "feature": "Offline baseline skills for native clients and read-only bundled skill access for MCP hosts",
+  "publication_status": "published_and_verified",
+  "frontend_deployment": "d1c16849-999a-46d7-afff-985faa5902e6",
+  "frontend_url": "https://frontend-production-a08a.up.railway.app",
+  "install_url": "https://frontend-production-a08a.up.railway.app/install",
+  "bundled_skills": [
+    "find-skills",
+    "using-superpowers",
+    "brainstorming",
+    "writing-plans",
+    "test-driven-development",
+    "systematic-debugging",
+    "verification-before-completion",
+    "vibecoding",
+    "mcp-setup",
+    "visual-explainer",
+    "project-documentation-wiki"
+  ],
+  "validation": {
+    "python_tests": 96,
+    "python_suite": "passed",
+    "mentor_and_all_bundled_skill_manifests": "passed",
+    "mcpb_manifest_schema": "passed_with_official_mcpb_2.1.2",
+    "archive_integrity_and_release_checksums": "passed",
+    "bundled_resource_copies_verified": 264,
+    "installed_public_file_hashes_verified": 316,
+    "personal_runtime_files_preserved": 7,
+    "native_baseline_ready": {"codex": 11, "claude-code": 11},
+    "mcp_skill_reads_with_collection_disabled": "passed",
+    "live_production_downloads_match_local_archives": "passed",
+    "production_browser_smoke": "passed",
+    "production_student_records_modified": false
+  },
+  "archive_sha256": {
+    "arslanbek-ai-mentor.zip": "f2af3803061313ddb89d51209f478337d4b7bf49cd48085be6877fc9efd89e3f",
+    "arslanbek-codex.zip": "32d343f3cd26aa3645c413001b569b154e185e3a3c508acab4fd508797de32b2",
+    "arslanbek-claude-desktop.mcpb": "d0551f7525109375b3aca62ed1a9fd37240b4496f623207b9f5da0cb20ca2fc0"
+  },
+  "scope": {
+    "native_clients": "Bootstrap or the packaged installer prepares the 11 bundled skill dependencies only for the selected native client. Existing third-party skills, symbolic links and user modifications are preserved.",
+    "mcp_hosts": "arslanbek_list_skills and arslanbek_read_skill expose reviewed instruction resources independently of school collection consent. Applying instructions and running tools depend on host capabilities.",
+    "offline_baseline": "Core preparation uses the package's Python interpreter and requires no network, npm or Bash. External services and optional stack-specific skills are separate.",
+    "optional_online_skills": "Install exact requested skill names for the selected native agent. Claude Code plugins are restricted to Claude Code.",
+    "format": "Persistent chat and matching local HTML preferences remain enabled; explicit chat-only choices and existing instructions are preserved.",
+    "deployment": "Only the existing frontend service was deployed. Staged public files exclude private configuration. Pinned archive transport reconstructed and verified the original release archive bytes before build.",
+    "billing": "Railway reported PRO at publication time. No plan or billing settings were changed by the agent."
+  }
+}

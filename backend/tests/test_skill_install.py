@@ -49,6 +49,7 @@ class SkillBundleTestCase(unittest.TestCase):
         self.state = self.root / 'state'
         self.skill = self.home / 'skills/arslanbek-ai-mentor'
         self.env = {**os.environ, 'ARSLANBEK_STATE': str(self.state),
+                    'ARSLANBEK_SKILLS_HOME':str(self.root / 'dependencies'),
                     'ARSLANBEK_TELEMETRY_URL': '', 'ARSLANBEK_TELEMETRY': '1'}
 
     def tearDown(self):
@@ -84,8 +85,8 @@ class SkillInstallTest(SkillBundleTestCase):
     def test_standard_release_keeps_participant_choice_and_matching_instructions(self):
         skill = self.bundle / 'arslanbek-ai-mentor'
         self.assertFalse((skill / 'school-policy.json').exists())
-        self.assertEqual((skill / '.school-release').read_text().strip(), 'telemetry-9-observability-standard')
-        self.assertIn('SKILL_VERSION = "telemetry-9-observability-standard"', (skill / 'scripts/telemetry.py').read_text())
+        self.assertEqual((skill / '.school-release').read_text().strip(), 'telemetry-10-global-format-standard')
+        self.assertIn('SKILL_VERSION = "telemetry-10-global-format-standard"', (skill / 'scripts/telemetry.py').read_text())
         instructions = (self.bundle / 'START_HERE.txt').read_text()
         self.assertIn('python3 install.py --client codex', instructions)
         self.assertIn('При первой установке выберите', instructions)

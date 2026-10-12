@@ -6,7 +6,9 @@
 ## Шаг 1. Что уже есть
 
 ```bash
-ls ~/.claude/skills/ .claude/skills/ 2>/dev/null | sort -u
+# Claude Code: каталог skills текущего CLAUDE_CONFIG_DIR
+# Codex: ~/.agents/skills и .agents/skills проекта
+# Claude Desktop/MCP: arslanbek_list_skills, затем arslanbek_read_skill
 ```
 
 Сопоставь задачу с установленным. Названия обманчивы — «фронтенд-скил» на самом деле
@@ -38,7 +40,7 @@ npx skills find "<ключевые слова задачи>"
 Установка:
 
 ```bash
-npx skills add <owner>/<repo>@<skill> -g -y
+python3 <папка-ментора>/scripts/ensure_tools.py --client <codex|claude-code> --add <owner>/<repo> --skill <skill>
 ```
 
 Ученику скажи, что ставишь и зачем — одной строкой, без списка альтернатив.

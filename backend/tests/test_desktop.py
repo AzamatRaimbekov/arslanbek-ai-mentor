@@ -41,6 +41,7 @@ class DesktopTest(unittest.TestCase):
         self.root = Path(self.tmp.name).resolve()
         self.state = self.root / 'state'
         self.env = {**os.environ, 'ARSLANBEK_STATE': str(self.state),
+                    'ARSLANBEK_SKILLS_HOME':str(self.root / 'dependencies'),
                     'ARSLANBEK_TELEMETRY_URL': '', 'ARSLANBEK_TELEMETRY': '1',
                     'PYTHONIOENCODING': 'cp1252', 'PYTHONDONTWRITEBYTECODE': '1'}
         self.env.pop('ARSLANBEK_CLIENT', None)
@@ -70,6 +71,10 @@ class DesktopTest(unittest.TestCase):
         (home / 'hooks.json').write_text(json.dumps({'hooks': {'Stop': [{'hooks': [{'type': 'command', 'command': 'keep-me'}]}]}}), encoding='utf-8-sig')
         argv = [sys.executable, str(self.skill / 'scripts/bootstrap.py'), '--codex-home', str(home)]
         self.run_script(argv)
+        for name in ('visual-explainer','vibecoding','mcp-setup','verification-before-completion'):
+            self.assertTrue((self.root / 'dependencies' / name / 'SKILL.md').is_file(), name)
+        self.assertIn('Постоянный формат', (home / 'AGENTS.md').read_text(encoding='utf-8'))
+        self.assertEqual(json.loads((home / 'arslanbek-answer-mode.json').read_text())['format'], 'chat+html')
         config = (home / 'config.toml').read_text(encoding='utf-8')
         self.assertIn('model = "keep-me"', config)
         self.assertEqual(config.count('[mcp_servers.arslanbek]'), 1)
@@ -87,6 +92,22 @@ class DesktopTest(unittest.TestCase):
         self.assertEqual(len(self.records()), 1)  # no duplicated registration
         consent = json.loads((self.state / 'clients/codex/consent.json').read_text(encoding='utf-8'))
         self.assertEqual(consent['source'], 'school_contract')
+
+    def test_global_answer_reminder_works_with_school_reporting_off_and_preserves_disable(self):
+        self.extract('arslanbek-codex.zip')
+        home = self.root / 'codex'
+        argv = [sys.executable, str(self.skill / 'scripts/bootstrap.py'), '--codex-home', str(home)]
+        self.run_script(argv)
+        hook = [sys.executable, str(self.skill / 'scripts/telemetry.py'), 'prompt']
+        event = json.dumps({'prompt': 'Короткий вопрос', 'cwd': str(self.root), 'session_id': 'format-test'}, ensure_ascii=False)
+        self.env['ARSLANBEK_TELEMETRY'] = '0'
+        before = len(self.records())
+        self.assertIn('Постоянный формат', self.run_script(hook, event))
+        self.assertEqual(len(self.records()), before)
+        self.run_script([sys.executable, str(self.skill / 'scripts/activate_answer_mode.py'), '--global', '--codex-home', str(home), '--disable'])
+        self.run_script(argv)
+        self.assertEqual(json.loads((home / 'arslanbek-answer-mode.json').read_text())['format'], 'chat')
+        self.assertIn('отключён', self.run_script(hook, event))
 
     def test_claude_exec_hook_handles_unicode_quotes_and_migrates_only_own_hook(self):
         self.extract('arslanbek-ai-mentor.zip')
@@ -139,6 +160,24 @@ class DesktopTest(unittest.TestCase):
         self.assertTrue(responses[1]['result']['isError'])
         self.assertEqual(self.records(), [])
         self.assertFalse((self.state / 'device.json').exists())
+
+    def test_desktop_bundled_skills_work_with_school_collection_off(self):
+        self.extract('arslanbek-claude-desktop.mcpb')
+        self.env['ARSLANBEK_TELEMETRY'] = 'false'
+        responses = self.mcp([
+            {'jsonrpc':'2.0','id':2,'method':'tools/list'},
+            {'jsonrpc':'2.0','id':3,'method':'tools/call','params':{'name':'arslanbek_list_skills','arguments':{}}},
+            {'jsonrpc':'2.0','id':4,'method':'tools/call','params':{'name':'arslanbek_read_skill','arguments':{'name':'visual-explainer'}}},
+            {'jsonrpc':'2.0','id':5,'method':'tools/call','params':{'name':'arslanbek_read_skill','arguments':{'name':'visual-explainer','path':'../../telemetry.conf'}}},
+        ])
+        self.assertIn('arslanbek_read_skill',{tool['name'] for tool in responses[1]['result']['tools']})
+        listed = json.loads(responses[2]['result']['content'][0]['text'])
+        self.assertEqual(len(listed['skills']),11)
+        document = json.loads(responses[3]['result']['content'][0]['text'])
+        self.assertIn('# Visual Explainer',document['content'])
+        self.assertTrue(responses[4]['result']['isError'])
+        self.assertEqual(self.records(),[])
+        self.assertFalse((self.root / 'dependencies').exists())
 
     def test_codex_mcp_hook_preserves_event_and_rejects_invalid_context(self):
         self.extract('arslanbek-codex.zip')

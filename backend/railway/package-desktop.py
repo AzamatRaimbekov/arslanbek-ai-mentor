@@ -83,6 +83,11 @@ def build(output, cache, include_windows=True, contract=True):
 На Windows: %USERPROFILE%\\.agents\\skills\\arslanbek-ai-mentor.
 В новом локальном чате вызовите $arslanbek-ai-mentor и дайте рабочую задачу.
 Агент сам выполнит подключение. Запускать скрипты вручную не нужно.
+Первый запуск подключает 11 встроенных скиллов, включая visual-explainer,
+диагностику и базовые инструкции Superpowers. Для этого не нужны сеть, npm и Bash.
+Личные правки и другие установленные скиллы сохраняются.
+Первый вызов сохраняет формат «чат + HTML» глобально для последующих вопросов,
+проектов и сессий Codex. Другие инструкции и выбор «только чат» сохраняются.
 Windows-пакет содержит свой Python x64/ARM64, Bash и WSL не требуются.
 На macOS/Linux нужен Python 3.10+. В WSL устанавливайте скилл внутри WSL.
 Просмотрите и доверьте хуки в Codex: это отдельное требование приложения.
@@ -104,7 +109,7 @@ Windows-пакет содержит свой Python x64/ARM64, Bash и WSL не 
     desktop['arslanbek-ai-mentor/SKILL.md'] = base['arslanbek-ai-mentor/references/portable-skill.md']
     desktop['manifest.json'] = json.dumps({
         'manifest_version': '0.4', 'name': 'arslanbek-ai-mentor', 'display_name': 'Arslanbek — наставник и прогресс',
-        'version': '9.0.0', 'description': 'Учебные запросы и сводки задач в кабинет школы Arslanbek.',
+        'version': '9.2.0', 'description': 'Наставник Arslanbek с 11 встроенными скиллами и прогрессом обучения.',
         'long_description': 'Школьный пакет для участников с договором. Передаёт текущие запросы и сводки, которые отправляет агент, псевдонимы проектов и участника. Распознанные личные данные заменяются локально, типовые секреты удаляются; распознавание может пропустить личные сведения в свободном тексте. Не считывает прошлые чаты, ответы ИИ или файлы проектов. В обычном чате нет хука каждого сообщения: полнота зависит от вызовов инструментов. Выключить сбор можно в настройках расширения. Сохранённый отказ не переопределяется.',
         'author': {'name': 'Arslanbek'},
         'tools_generated': True, 'prompts_generated': True,
@@ -116,11 +121,11 @@ Windows-пакет содержит свой Python x64/ARM64, Bash и WSL не 
         'user_config': {'collection_enabled': {'type': 'boolean', 'title': 'Передавать учебные данные школе',
                                               'description': 'Текущие запросы и сводки, отправленные агентом. История и файлы не считываются.', 'default': True}},
     }, ensure_ascii=False, indent=2).encode('utf-8')
-    desktop['pyproject.toml'] = b'[project]\nname = "arslanbek-desktop"\nversion = "9.0.0"\nrequires-python = ">=3.10"\ndependencies = []\n\n[tool.uv]\npackage = false\n'
+    desktop['pyproject.toml'] = b'[project]\nname = "arslanbek-desktop"\nversion = "9.2.0"\nrequires-python = ">=3.10"\ndependencies = []\n\n[tool.uv]\npackage = false\n'
     write_zip(output / 'arslanbek-claude-desktop.mcpb', desktop)
     manifest = {p.name: {'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'bytes': p.stat().st_size}
                 for p in (output / n for n in ('arslanbek-ai-mentor.zip', 'arslanbek-codex.zip', 'arslanbek-claude-desktop.mcpb'))}
-    (output / 'release.json').write_text(json.dumps({'version': '9.0.0', 'windows_runtime_bundled': include_windows, 'files': manifest}, indent=2) + '\n', encoding='utf-8')
+    (output / 'release.json').write_text(json.dumps({'version': '9.2.0', 'windows_runtime_bundled': include_windows, 'files': manifest}, indent=2) + '\n', encoding='utf-8')
     return manifest
 
 

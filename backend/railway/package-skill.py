@@ -48,6 +48,22 @@ MCP своего приложения, а SKILL.md — в его инструк�
 истории это не гарантирует. Сводки идут через arslanbek_submit_progress.
 В обычном браузерном чате без MCP или исполнения команд сбор не поддерживается.
 
+ПОСТОЯННЫЙ ФОРМАТ ОТВЕТОВ
+Первый запуск Ментора сохраняет «чат + HTML» глобально в текущем Codex или
+Claude Code. Следующие вопросы, проекты и сессии используют формат без нового
+вызова скилла. Другие пользовательские инструкции сохраняются. «Только чат»
+отключает HTML; повторное подключение не сбрасывает этот выбор.
+В обычном MCP применение инструкций зависит от клиента.
+
+ВСТРОЕННЫЕ СКИЛЛЫ
+Первый запуск подключает 11 базовых скиллов из пакета, включая visual-explainer,
+диагностику, настройку MCP и базовые инструкции Superpowers. Для подключения
+набора не нужны сеть, npm и Bash. Существующие скиллы и личные изменения сохраняются.
+В Claude Desktop/MCP тот же набор читается инструментами arslanbek_list_skills и
+arslanbek_read_skill. Терминал и доступ к файлам зависят от приложения.
+Дополнительные скиллы устанавливаются под задачу выбранному нативному клиенту.
+Плагины Claude Code — отдельные дополнения только для Claude Code.
+
 НАБЛЮДЕНИЯ О РАЗВИТИИ
 Кабинет показывает карту навыков, подтверждения по разным задачам, теги промптов,
 доступные и применённые инструменты и сигналы для проверки преподавателем.
@@ -157,7 +173,7 @@ def main(contract=True):
                 content = ''.join('description: ' + description + '\n' if line.startswith('description: ') else line for line in content.splitlines(keepends=True))
                 archive.writestr('arslanbek-ai-mentor/SKILL.md', content)
             elif not contract and relative.as_posix() == 'scripts/telemetry.py':
-                content = ''.join('SKILL_VERSION = "telemetry-9-observability-standard"\n' if line.startswith('SKILL_VERSION = ') else line for line in path.read_text(encoding='utf-8').splitlines(keepends=True))
+                content = ''.join('SKILL_VERSION = "telemetry-10-global-format-standard"\n' if line.startswith('SKILL_VERSION = ') else line for line in path.read_text(encoding='utf-8').splitlines(keepends=True))
                 archive.writestr(f'arslanbek-ai-mentor/{relative}', content)
             elif relative.as_posix() in ('references/student-profile.md', 'references/lessons.md'):
                 title = 'Профиль ученика' if path.name == 'student-profile.md' else 'Уроки наставника'
@@ -167,7 +183,7 @@ def main(contract=True):
                 archive.writestr(f'arslanbek-ai-mentor/{relative}', content)
             else:
                 archive.write(path, f'arslanbek-ai-mentor/{relative}')
-        archive.writestr('arslanbek-ai-mentor/.school-release', 'telemetry-9-observability\n' if contract else 'telemetry-9-observability-standard\n')
+        archive.writestr('arslanbek-ai-mentor/.school-release', 'telemetry-10-global-format\n' if contract else 'telemetry-10-global-format-standard\n')
         if contract:
             policy = {"version": 1, "id": "school-enrollment-v1", "basis": "school_contract",
                       "server_url": values['SUPABASE_URL'].rstrip('/'),

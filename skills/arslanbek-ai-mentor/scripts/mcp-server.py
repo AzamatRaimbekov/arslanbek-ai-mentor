@@ -7,10 +7,16 @@ import os
 import sys
 import uuid
 import telemetry as t
+import skill_dependencies as dependencies
+from pathlib import Path
 from progress_report import SCHEMA
 
 VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05")
 TOOLS = [
+    {'name':'arslanbek_list_skills','description':'Список встроенных скиллов Арсланбека. Работает без включения сбора данных; в Claude Desktop/MCP скиллы доступны через расширение.',
+     'inputSchema':{'type':'object','properties':{},'additionalProperties':False},'annotations':{'readOnlyHint':True}},
+    {'name':'arslanbek_read_skill','description':'Прочитать встроенный SKILL.md или указанный в нём текстовый ресурс. Используй подходящий скилл перед задачей. Чтение не запускает скрипты и не подключает внешние сервисы.',
+     'inputSchema':{'type':'object','properties':{'name':{'type':'string'},'path':{'type':'string','default':'SKILL.md'}},'required':['name'],'additionalProperties':False},'annotations':{'readOnlyHint':True}},
     {'name': 'arslanbek_capture_tool', 'description': 'Обработчик доверенного PostToolUse-хука. Записывает только название инструмента и источник, без аргументов, файлов и результата инструмента.',
      'inputSchema': {'type': 'object', 'properties': {'event': {'type': 'object', 'properties': {'tool_name': {'type': 'string'}, 'tool_use_id': {'type': 'string'}, 'session_id': {'type': 'string'}, 'cwd': {'type': 'string'}}, 'required': ['tool_name'], 'additionalProperties': False}}, 'required': ['event'], 'additionalProperties': False}},
     {"name": "arslanbek_capture_event", "description": "Обработчик доверенного UserPromptSubmit-хука Codex. Вызывается приложением, не дублируй вручную. Не блокирует работу при отключённом сборе.",
@@ -31,6 +37,14 @@ def tool_result(value, error=False):
 
 
 def call_tool(name, args):
+    if not isinstance(args, dict):
+        raise ValueError("arguments must be an object")
+    if name == 'arslanbek_list_skills':
+        entries = dependencies.catalog(Path(__file__).resolve().parents[1])
+        return tool_result({'client':t.CLIENT,'delivery':'bundled-guidance','skills':[
+            {'name':entry['name'],'description':entry['description'],'source':entry['source']} for entry in entries]})
+    if name == 'arslanbek_read_skill':
+        return tool_result(dependencies.read(Path(__file__).resolve().parents[1],args.get('name'),args.get('path','SKILL.md')))
     if name == 'arslanbek_capture_tool':
         event = args.get('event')
         if not isinstance(event, dict):
@@ -99,7 +113,7 @@ def main():
             if method == "initialize":
                 version = params.get("protocolVersion")
                 result = {"protocolVersion": version if version in VERSIONS else VERSIONS[0],
-                          "capabilities": {"tools": {}, "prompts": {}}, "serverInfo": {"name": "arslanbek", "version": "8.1.0"},
+                          "capabilities": {"tools": {}, "prompts": {}}, "serverInfo": {"name": "arslanbek", "version": "9.2.0"},
                           "instructions": guidance()}
                 # The desktop host starts this server. No participant-run installer
                 # is necessary. Existing opt-outs and the off switch take priority.
@@ -136,6 +150,10 @@ def main():
 
 def guidance():
     return ('Помогай участнику школы Arslanbek выполнить рабочую задачу и понять решение. '
+            'Базовый набор скиллов включён в пакет. Перед подходящей задачей используй arslanbek_list_skills '
+            'и arslanbek_read_skill, затем следуй выбранной инструкции и её ресурсам. В Claude Desktop/MCP '
+            'это чтение встроенных инструкций, а не установка Claude Code-плагинов или разрешение исполнять скрипты. '
+            'При отсутствии файловых/терминальных инструментов используй доступные возможности клиента и обозначай границу. '
             'Каждый финальный ответ дай понятными блоками в чате и дополнительно как HTML с тем же содержанием. '
             'HTML содержит читаемые заголовки, цветные акценты и карточки. Если доступна папка скилла, '
             'используй references/html-answer.md и scripts/render_html.py; иначе создай HTML-артефакт '

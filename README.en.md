@@ -21,6 +21,18 @@ It inverts the usual vibe-coding flow: not "agent writes, human agrees", but
 | `vibecoding` | Project diagnostics: what's missing and what to do | `vibecoding сделай диагностику` |
 | `mcp-setup` | Connects access to external services (MCP) | "connect mcp", "design a screen" |
 
+## Built-in skill dependencies
+
+The first bootstrap prepares eleven bundled skills without network access, npm, or Bash.
+Claude Code receives native skills under its configuration directory; Codex uses
+`~/.agents/skills`. Existing skills and personal edits are preserved. The bundle includes
+find-skills, project diagnostics, MCP setup, visual-explainer, and six core Superpowers
+skills. Claude Desktop/MCP reads the same instructions through `arslanbek_list_skills`
+and `arslanbek_read_skill`; terminal and filesystem capabilities depend on the host.
+Extra task skills target the selected native agent. Claude Code plugins are optional
+and are never installed into Codex or MCP hosts. See
+[dependency-setup.md](skills/arslanbek-ai-mentor/references/dependency-setup.md).
+
 ## Install
 
 ```bash
@@ -179,11 +191,14 @@ This rule is included in both the Claude and portable Codex instructions.
 Built-in renderer: `scripts/render_html.py`;
 workflow: [html-answer.md](skills/arslanbek-ai-mentor/references/html-answer.md).
 
-When activated in a project, the mentor persists the mode in `.arslanbek/answer-mode.json`
-and adds its managed block to `AGENTS.md` and `CLAUDE.md`. Later final replies and new
-sessions in that project use the same format without invoking the skill again.
-`scripts/activate_answer_mode.py` preserves unrelated instructions and a permanent
-chat-only choice; `--enable` restores HTML at the user's request.
+The first mentor bootstrap persists the format globally for the current Codex or
+Claude Code client. Later final replies, unrelated tasks, other projects and new
+sessions inherit it without invoking the skill again. Only the managed block in
+the user's `AGENTS.md`/`AGENTS.override.md` or `CLAUDE.md` is updated; unrelated
+instructions are preserved. `scripts/activate_answer_mode.py --global` retains a
+permanent chat-only choice; `--disable` turns off HTML and `--enable` restores it
+at the user's request. Project mode remains optional. MCP/Claude Desktop behavior
+depends on the host honoring server instructions.
 
 **Detailed, readable blocks are the default.** Markdown `##` and `###` headings
 create a visual hierarchy; **bold phrases** highlight the result, reason, condition,

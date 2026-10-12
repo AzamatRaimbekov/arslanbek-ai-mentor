@@ -4,45 +4,19 @@
 миру, скилы — за то, как ведётся сама работа. Дыры в обоих проявляются одинаково: агент
 не отказывается, а тихо делает хуже.
 
-## Как устроена установка на этой машине
+## Подключение базового набора
 
-Скилы живут в `~/.claude/skills/` (глобально) или `.claude/skills/` (в проекте).
-Часть установок кладёт туда **симлинки** на мастер-копию в другом каталоге. Битый симлинк
-выглядит в `ls` как существующая папка, но не читается — поэтому проверять надо через
-`[ -d ]` (следует по ссылке), а не через `-e` или глазами по `ls`.
+Ядро процесса уже включено в пакет: `scripts/bootstrap.py` подключает его первому
+запуску. Claude Code устанавливает в каталог скиллов текущего приложения, Codex —
+в `~/.agents/skills/`; Claude Desktop/MCP получает инструкции через
+`arslanbek_list_skills` и `arslanbek_read_skill`. Порядок и проверка результата:
+`references/dependency-setup.md`.
 
-Установка недостающего:
-
-```bash
-claude plugin install superpowers@claude-plugins-official  # brainstorming, writing-plans, TDD, ...
-npx skills find <название>              # поиск остального в экосистеме
-```
-
-Если скилы пришли из общего набора (ruflo, корпоративный marketplace, свой форк) —
-восстанавливай тем же способом, которым ставил изначально, а не поштучно.
-
-## Проверка — она же установка
-
-```bash
-bash ~/.claude/skills/arslanbek-ai-mentor/scripts/ensure-tools.sh
-```
-
-Скрипт не докладывает о нехватке — он её закрывает: ставит плагины и процессные
-скилы сам и проверяет результат на диске. Ручной обход ниже нужен, только если
-скрипт недоступен.
-
-```bash
-cd ~/.claude/skills
-for s in find-skills frontend-agent frontend-error-ux design-system-steward \
-         backend-engineering backend-code-review code-reviewer \
-         brainstorming writing-plans using-superpowers \
-         test-driven-development systematic-debugging verification-before-completion \
-         project-documentation-wiki; do
-  [ -d "$s" ] || echo "НЕТ: $s"
-done
-```
-
-Молчание — всё на месте. Не печатай полный список, когда всё в порядке: это шум.
+Для повторной проверки используй `scripts/ensure_tools.py --client <клиент>`
+с Python пакета на Windows. Чужие скиллы, символьные ссылки и личные правки
+сохраняются. Плагины Claude Code подключаются отдельно по задаче и только в
+Claude Code. Не устанавливай их в Codex/MCP и не считай установку инструкций
+подключением внешнего сервера.
 
 ## Что именно проверять и зачем
 

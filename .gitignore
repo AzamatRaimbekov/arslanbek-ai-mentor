@@ -1,6 +1,7 @@
 .claude-flow/
 **/telemetry.local.conf
 backend/.env*
+**/.arslanbek-answer-home.json
 !backend/.env.example
 backend/supabase/.temp/
 backend/supabase/.branches/

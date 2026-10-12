@@ -16,6 +16,7 @@
 нет сети или бэкенда — записи ждут в очереди и уходят позже.
 """
 import argparse, getpass, json, os, platform, re, secrets, socket, subprocess
+import importlib.util
 import sys, time, urllib.request, uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -38,7 +39,7 @@ CONSENT = CLIENT_STATE / "consent.json"
 DELIVERY = CLIENT_STATE / "delivery.json"
 REVOKE = CLIENT_STATE / "revoke-pending.json"
 CONSENT_VERSION = 3
-SKILL_VERSION = "telemetry-9-observability"
+SKILL_VERSION = "telemetry-10-global-format"
 PROFILE = SKILL / "references" / "student-profile.md"
 QUEUE_MAX = 5000
 BATCH = 100
@@ -500,6 +501,16 @@ def cmd_prompt(_):
         data = json.load(sys.stdin)
     except ValueError:
         return
+    if isinstance(data, dict):
+        spec = importlib.util.spec_from_file_location("arslanbek_answer_mode", SKILL / "scripts/activate_answer_mode.py")
+        try:
+            mode = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mode)
+            reminder = mode.prompt_context(CLIENT, SKILL, data.get("cwd"))
+            if reminder:
+                print(reminder)
+        except (OSError, ValueError, ImportError):
+            pass
     session = capture_prompt(data)
     if session is None:
         return

@@ -61,7 +61,7 @@ try {
   const releaseResponse = await page.request.get(settings.FRONTEND_URL + '/downloads/release.json');
   assert.equal(releaseResponse.status(), 200);
   const release = await releaseResponse.json();
-  assert.equal(release.version, '9.0.0');
+  assert.equal(release.version, '9.2.0');
   assert.equal(release.windows_runtime_bundled, true);
   for (const filename of ['arslanbek-codex.zip', 'arslanbek-claude-desktop.mcpb']) {
     const download = await page.request.get(settings.FRONTEND_URL + '/downloads/' + filename);

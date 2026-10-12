@@ -10,9 +10,11 @@
 Большие числа установок означают популярность, **не качество**. Скил выполняется
 с полными правами агента — открывай `SKILL.md` глазами перед установкой.
 
-## Уровень 0. Плагины — ставить первыми
+## Уровень 0. Дополнительные плагины Claude Code
 
-Это не скилы, ставятся другой командой и приносят сразу пачку возможностей.
+Базовые скиллы уже подключены переносимым bootstrap. Плагины ниже нужны по
+конкретной задаче в Claude Code; в Codex и Claude Desktop их команды не применяются.
+Внешние скиллы подключай с явным текущим клиентом по `references/dependency-setup.md`.
 
 ```bash
 claude plugin install superpowers@claude-plugins-official
@@ -23,7 +25,7 @@ claude plugin install vercel@claude-plugins-official
 
 | Плагин | Зачем вайбкодеру |
 |--------|------------------|
-| `superpowers` | Процессное ядро: brainstorming, writing-plans, TDD, systematic-debugging, verification-before-completion. **Без него нет дисциплины вообще** |
+| `superpowers` | Процессное ядро: brainstorming, writing-plans, TDD, systematic-debugging, verification-before-completion. Базовые инструкции уже встроены в Арсланбек |
 | `claude-mem` | Память между сессиями. Без неё каждый заход начинается с нуля |
 | `frontend-design` | Интерфейсы перестают выглядеть шаблонными |
 | `vercel` | MCP для деплоя, логов и переменных окружения |
@@ -51,7 +53,7 @@ npx skills add trkbt10/indexion-skills@indexion-readme -g -y
 npx skills add open-mercato/skills@om-root-cause -g -y
 ```
 
-## Уровень 1.4. Рабочий слой: ecc + Ralph (ставится всем)
+## Уровень 1.4. Дополнительный рабочий слой Claude Code: ecc + Ralph
 
 | Плагин | Что даёт | Когда зову |
 |--------|----------|------------|

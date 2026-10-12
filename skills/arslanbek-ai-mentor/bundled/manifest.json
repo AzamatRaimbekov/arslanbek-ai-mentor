@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "source": "https://github.com/vercel-labs/skills",
+      "revision": "existing-reviewed-bundle",
+      "files": {
+        "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+        "SKILL.md": "f21862be3a80040d4c5e651849de3bcaa2b7392d9fc295f81d6eeac4906536ce"
+      }
+    },
+    {
+      "name": "using-superpowers",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "82c5c8866ad7f5dd4440ce66bd7806ba48a2f13771beae5cf112e53f08fe36ba",
+        "references/antigravity-tools.md": "4880f6de3da4e32f9659ebe7a72b9e0ebfff04e028c2ed96173f86d0387a04c0",
+        "references/claude-code-tools.md": "21479a3fee27448cab8748a3b5687e53bb257883bda9c070426f9a1ab5cebf1b",
+        "references/codex-tools.md": "1a38ad9b188c393052f58d95657a1c35ea6aafc8b5a27f198f3922912f70bbe7",
+        "references/gemini-tools.md": "62b9157bcb0ee3c6784e3d0da0798ddfa5872f9e0c34bea48f3079dabea71965",
+        "references/hermes-tools.md": "e2185c976a3c87503910e05e2aea58cc89bc8e569bb624b93df9958ac47a9190",
+        "references/muse-tools.md": "5a1da5c575fe18456ca71cd47ebfd8a38c745f8d82a67fe64d5b83080000eeb3",
+        "references/pi-tools.md": "703dbc83d23ecab9c6f388460c38abc482e9dee2fe6772a8c7a255152ad3a4d5"
+      }
+    },
+    {
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, modifying behavior, or planning anything new, in software or out of it (a talk, a business, a renovation).",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "6ee10d1481b8a2580d5336ff66c5c08acc9d4b251b13bbc3bfd31be99c261d43",
+        "builder-check-prompt.md": "36d51a4723d6f0a3ce5811a0ea3b3a8424f07533947e1355f5d8cb8cce40c55e",
+        "scripts/frame-template.html": "6a8a4e58bd6a44b904e2e3c57de774481d909204597e1498de53f1b2fecc4c4e",
+        "scripts/helper.js": "43c6d69954a46ec34a2a262bcc62a9a7e83e839c739f199cb72646d397c686e3",
+        "scripts/server.cjs": "763abf96510e0b892a1141397b31aa82ef900cf87ed34dde94bc8782baf4a7ca",
+        "scripts/start-server.sh": "a4e5ae84275bcaacd2f84345afeabe59cf7b00ba080e123da7cc1fb226f12847",
+        "scripts/stop-server.sh": "0b5ccbbd57f62d3ed88993f7940b5ee0e5c0fc9b21c550c623da4f6292e47daf",
+        "visual-companion.md": "6ffcb038b53254bd31debaa15e12dcd4ff24bd63d690e0b644ac6396701cf2e2"
+      }
+    },
+    {
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
+      }
+    },
+    {
+      "name": "test-driven-development",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+        "writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
+      }
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+        "condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+        "condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+        "defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+        "find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+        "root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+        "test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+        "test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+        "test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+        "test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
+      }
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "source": "https://github.com/obra/superpowers",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "files": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+      }
+    },
+    {
+      "name": "vibecoding",
+      "description": "Use when the user asks to diagnose, audit, or health-check a project - \"vibecoding сделай диагностику\", \"проверь проект\", \"чего не хватает в проекте\", \"что не так с проектом\", \"готов ли проект\", \"diagnose my project\", \"project health check\". Also use before deploying, before handing a project to someone else, or when a codebase built with an AI agent needs to be checked for the artifacts it skipped.",
+      "source": "https://github.com/AzamatRaimbekov/arslanbek-ai-mentor",
+      "revision": "local-source",
+      "files": {
+        "LICENSE": "1f2dbf9de4bedc311c56693fe62e47d3a13bbfa3761a7ec4154131f9048b9240",
+        "SKILL.md": "1a5e1c5238208c44037c79d30e2bd9a574d34bd4a7a6359534ab62134c2589f2",
+        "scripts/diagnose.sh": "c1b9f22e85eb329c968686943fcba536ebfcbb4ea133d9578373c1d0aa517f4b",
+        "scripts/ensure-tools.sh": "4276e6b00f3be211010db4be66cfa827f490004a77a25cf8c006251a9dc26e02"
+      }
+    },
+    {
+      "name": "mcp-setup",
+      "description": "Use when the agent needs access to the outside world and it is unclear what is connected - \"подключи mcp\", \"настрой доступы\", \"почему ты не видишь логи\", \"не видишь мою базу\", \"подключи vercel\", \"подключи supabase\", \"подключи stitch\", \"подключи drawio\", \"нарисуй схему\", \"нарисуй макет\", \"сделай дизайн экрана\", \"connect mcp\", \"set up mcp servers\". Also use before deploying, before touching a database, before generating UI or screen mockups, and whenever a tool call fails with an authentication error rather than a code error.",
+      "source": "https://github.com/AzamatRaimbekov/arslanbek-ai-mentor",
+      "revision": "local-source",
+      "files": {
+        "LICENSE": "1f2dbf9de4bedc311c56693fe62e47d3a13bbfa3761a7ec4154131f9048b9240",
+        "SKILL.md": "80e4d67f8649f0031d9e5fffd05017c40f859ecca12110ad1b56a470c1f140a8",
+        "references/services.md": "d70075af5ff3866db19d36174dd14bc4fd5605dc9c4fef7f0ee39812a5aca2f3",
+        "scripts/add-key.sh": "ab4c95a5f2fce4074c503396b32443d2159d0a42269557795e601c707669aba4",
+        "scripts/ensure-mcp.sh": "6528b39b91e64b266aff4c970fd9bc39e481beaf17405ce816f21ceb0c082810"
+      }
+    },
+    {
+      "name": "visual-explainer",
+      "description": "Generate self-contained HTML visual explanations for systems, code changes, plans, data, and technical concepts. Use for diagrams, architecture overviews, diff or plan reviews, project recaps, comparison tables, slide decks, animated explainers, narrated MP4 videos, and other visual explanations.",
+      "source": "https://github.com/nicobailon/visual-explainer",
+      "revision": "reviewed-installed-0.12.0",
+      "files": {
+        "LICENSE": "871b3c6c64e030c0647ca33543716bdae9511ae2d6a85d6f4ce63783bab52c8f",
+        "SKILL.md": "48c031460856765423499ed7f3fa283b024f7c7f1b65b08d363f396d0b971d2a",
+        "assets/answer.html": "70ce82135aab28aa9539476b3a6da056bafb98a9bc19d8f56823e58e9d8c4d24",
+        "commands/diff-review.md": "c328ae3bbad3539eba01457d149c970fdda68fb616c8fec26842655b43ed0d20",
+        "commands/fact-check.md": "0ec0fbcb103ed6bfe24f6cf082fa20c5d1d29dfca281be577c9cb2988b1e27da",
+        "commands/generate-slides.md": "45afc3b712d6d0a45ec9d1b010084c357153a6d9e177a75884d64db81e0f2525",
+        "commands/generate-video.md": "4db9a677f29c2e7aa35ef4a78689cdd9ed3086d9eade6e98e3b87ba29d033a95",
+        "commands/generate-visual-plan.md": "1a47968cb0e4fb5dba26d4085f08f8e2ffab883b29676887ba0e2ff8763e49db",
+        "commands/generate-web-diagram.md": "f7c6c776d151023304cd62e36c54f9ede1547b247785a7180fe0f1afeb6ba966",
+        "commands/plan-review.md": "44f03163233c499a60c703789a61aba1875fc0f47e30f80b7171afd6599d68fb",
+        "commands/project-recap.md": "c901b2ca1f5896f04b87a3027c21044d77fc9a291deeb7fa718da733e11de414",
+        "extension.ts": "c1575d2e76fbec2876f61921ee8d523a07784057a0991db0f7e15c17ebb11717",
+        "mcp/README.md": "2510c35804ba9f39c77e176a6131d1d7f1a48645ba0ec7956e1fcd042dacc475",
+        "mcp/server.mjs": "e450ebbf492815c18f2b96c9e57d6c274e9e5da90c417cf3c92269bfd691053f",
+        "plan/plan.css": "6a2fb5c4e85a9ed6330697e437f394af0917fc340979c08a1bfd37573dfa86c3",
+        "plan/plan.js": "b9721da592b37711e2258a23016aab9f6ecae1873685ed7b466a48635260eb4a",
+        "plan/render.mjs": "5a43065982c07abeba9d98b428ed5598ff019375f70145ef52d3fca7050af9dd",
+        "pptx/README.md": "2d607caa8c6d151e52baad18810134043a77e6c53eeb9725f835c9be1a2d695a",
+        "pptx/export.mjs": "4677fd6a4619d9bf2bca15bf1fd0d33683cf38e3693786658151113aeffb4acc",
+        "quick/README.md": "239ce2b4e8cd0c2a109143dbf1fec6719dd7a8c9d1df890f4c7eff0a233defe4",
+        "quick/base.css": "30346ed6cbfda60223f5c5e75563f7b04c3d7b45040d4b98242bd59299c7341e",
+        "quick/render.mjs": "5f07740a7945a0b7275c7d8e9e99c5909d5351a89ea65217554fbb774a20b560",
+        "quick/schema.json": "c2759e424a161aeb7544698582de9c215ee183f89cac66be291df645f2898137",
+        "references/diagrams.md": "8a82eef0315941ae7d84c5cb82df7fd5173de2bb31f53c9c6b3b5af0fb436353",
+        "references/html-answer.md": "4503a0ade22d6dbd29bbfeac2531168b26c272d5620d4339f2899c0a6c72fa00",
+        "references/plans.md": "738cdd56a2109a3f0b999808263129c7c6491445e1dcc79092b0444078048fee",
+        "references/slides.md": "bc952dc97f8215f9d197457d0d885845fe65c3a40cc185eeddcbaa01ea35545e",
+        "references/style-guide.md": "bb4f094947e38df062a6d8b077041e78324206396f991da0e52de926524faa81",
+        "references/themes.md": "15964ae7b68867a4a5e26946ce11661438837c9b8a10fcd67c6aac5049dcc72b",
+        "references/video.md": "767a93bdf76003f813a397c2ae7ad2d953b4e86316d022a08080e22c90e9867b",
+        "scripts/activate_answer_mode.py": "8fad90810f05f7e14efd804e13865599d47012820028493c18639ecfaa885226",
+        "scripts/render_html.py": "5dc86d6426e295a1bebd8c319a7e04fcec497cdc91f05b9e9dd6572a93fe4429",
+        "templates/page.html": "61e06303b0e707e37e1a4bd90fe3ebfa825525287b586e91cf6b1acabebb81ac",
+        "templates/plan.html": "4a2c393885e81565d7b369081174384fabd91cb7743a4f526291a7fd5f1c8fb1",
+        "templates/slide-deck.html": "33b46e6ff79d4be35ddd933ffcba4bc13acb59feaaf0d515b467085a1ca93b25",
+        "video/driver.js": "9a9332e9713f08f84af4481d82e12fc1569f42e64be28e9bc653b2874628edfe",
+        "video/media.mjs": "9627ae6dcee134445337f37c9c1471c46026273f1cdf15cff2c61a4afd1037b6",
+        "video/render.mjs": "0226e85d0e27e8dad520af1c1f22ad656b20d04829be825bf88363a0e2b08aa1"
+      }
+    },
+    {
+      "name": "project-documentation-wiki",
+      "description": "Preserve verified project knowledge in existing documentation when the user asks to document a project, prepare a handoff, or record a significant implementation decision.",
+      "source": "https://github.com/AzamatRaimbekov/arslanbek-ai-mentor",
+      "revision": "portable-project-knowledge-v1",
+      "files": {
+        "LICENSE": "1f2dbf9de4bedc311c56693fe62e47d3a13bbfa3761a7ec4154131f9048b9240",
+        "SKILL.md": "754a9a0a4b31cf9069d830dbedfb6e6f9e075f09c2a92a9b8bab9345431c001d"
+      }
+    }
+  ]
+}

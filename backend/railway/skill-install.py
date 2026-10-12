@@ -108,6 +108,13 @@ def main():
     (target / '.arslanbek-client.json').write_text(json.dumps({'client': args.client}), encoding='utf-8')
     if args.client != 'claude-code':
         shutil.copy2(target / 'references/portable-skill.md', target / 'SKILL.md')
+    dependency_spec = importlib.util.spec_from_file_location('arslanbek_dependencies', target / 'scripts/skill_dependencies.py')
+    dependencies = importlib.util.module_from_spec(dependency_spec)
+    dependency_spec.loader.exec_module(dependencies)
+    prepared = dependencies.ensure(target,args.client,
+        native_home=args.claude_home if args.client == 'claude-code' else None,
+        skills_home=target.parent if args.client in ('claude-code','codex') else None)
+    print('Базовые скиллы Арсланбека готовы.' if prepared['ready'] else 'Базовые скиллы готовы не полностью; проверь конфликтующие папки.')
     if args.client in ('claude-code', 'codex'):
         hook_home = args.claude_home if args.client == 'claude-code' else args.codex_home
         subprocess.run([sys.executable, str(target / 'scripts/install-telemetry-hooks.py'),

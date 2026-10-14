@@ -157,7 +157,7 @@
         "references/style-guide.md": "bb4f094947e38df062a6d8b077041e78324206396f991da0e52de926524faa81",
         "references/themes.md": "15964ae7b68867a4a5e26946ce11661438837c9b8a10fcd67c6aac5049dcc72b",
         "references/video.md": "767a93bdf76003f813a397c2ae7ad2d953b4e86316d022a08080e22c90e9867b",
-        "scripts/activate_answer_mode.py": "8fad90810f05f7e14efd804e13865599d47012820028493c18639ecfaa885226",
+        "scripts/activate_answer_mode.py": "17b6c48a8951d73992ae5484bf75ce98799be279ec04d5d71256297dbeb6b37e",
         "scripts/render_html.py": "5dc86d6426e295a1bebd8c319a7e04fcec497cdc91f05b9e9dd6572a93fe4429",
         "templates/page.html": "61e06303b0e707e37e1a4bd90fe3ebfa825525287b586e91cf6b1acabebb81ac",
         "templates/plan.html": "4a2c393885e81565d7b369081174384fabd91cb7743a4f526291a7fd5f1c8fb1",

@@ -109,7 +109,7 @@ Windows-пакет содержит свой Python x64/ARM64, Bash и WSL не 
     desktop['arslanbek-ai-mentor/SKILL.md'] = base['arslanbek-ai-mentor/references/portable-skill.md']
     desktop['manifest.json'] = json.dumps({
         'manifest_version': '0.4', 'name': 'arslanbek-ai-mentor', 'display_name': 'Arslanbek — наставник и прогресс',
-        'version': '9.2.0', 'description': 'Наставник Arslanbek с 11 встроенными скиллами и прогрессом обучения.',
+        'version': '9.3.0', 'description': 'Наставник Arslanbek с 11 встроенными скиллами и прогрессом обучения.',
         'long_description': 'Школьный пакет для участников с договором. Передаёт текущие запросы и сводки, которые отправляет агент, псевдонимы проектов и участника. Распознанные личные данные заменяются локально, типовые секреты удаляются; распознавание может пропустить личные сведения в свободном тексте. Не считывает прошлые чаты, ответы ИИ или файлы проектов. В обычном чате нет хука каждого сообщения: полнота зависит от вызовов инструментов. Выключить сбор можно в настройках расширения. Сохранённый отказ не переопределяется.',
         'author': {'name': 'Arslanbek'},
         'tools_generated': True, 'prompts_generated': True,
@@ -121,11 +121,11 @@ Windows-пакет содержит свой Python x64/ARM64, Bash и WSL не 
         'user_config': {'collection_enabled': {'type': 'boolean', 'title': 'Передавать учебные данные школе',
                                               'description': 'Текущие запросы и сводки, отправленные агентом. История и файлы не считываются.', 'default': True}},
     }, ensure_ascii=False, indent=2).encode('utf-8')
-    desktop['pyproject.toml'] = b'[project]\nname = "arslanbek-desktop"\nversion = "9.2.0"\nrequires-python = ">=3.10"\ndependencies = []\n\n[tool.uv]\npackage = false\n'
+    desktop['pyproject.toml'] = b'[project]\nname = "arslanbek-desktop"\nversion = "9.3.0"\nrequires-python = ">=3.10"\ndependencies = []\n\n[tool.uv]\npackage = false\n'
     write_zip(output / 'arslanbek-claude-desktop.mcpb', desktop)
     manifest = {p.name: {'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'bytes': p.stat().st_size}
                 for p in (output / n for n in ('arslanbek-ai-mentor.zip', 'arslanbek-codex.zip', 'arslanbek-claude-desktop.mcpb'))}
-    (output / 'release.json').write_text(json.dumps({'version': '9.2.0', 'windows_runtime_bundled': include_windows, 'files': manifest}, indent=2) + '\n', encoding='utf-8')
+    (output / 'release.json').write_text(json.dumps({'version': '9.3.0', 'windows_runtime_bundled': include_windows, 'files': manifest}, indent=2) + '\n', encoding='utf-8')
     return manifest
 
 

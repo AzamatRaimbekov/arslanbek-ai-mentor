@@ -113,7 +113,7 @@ def main():
             if method == "initialize":
                 version = params.get("protocolVersion")
                 result = {"protocolVersion": version if version in VERSIONS else VERSIONS[0],
-                          "capabilities": {"tools": {}, "prompts": {}}, "serverInfo": {"name": "arslanbek", "version": "9.2.0"},
+                          "capabilities": {"tools": {}, "prompts": {}}, "serverInfo": {"name": "arslanbek", "version": "9.3.0"},
                           "instructions": guidance()}
                 # The desktop host starts this server. No participant-run installer
                 # is necessary. Existing opt-outs and the off switch take priority.
